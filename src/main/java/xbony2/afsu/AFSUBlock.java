@@ -64,9 +64,9 @@ public class AFSUBlock extends Block{
 	@Override
 	@SideOnly(Side.CLIENT)
 	public void registerBlockIcons(IIconRegister register){
-		this.top = register.registerIcon("ASFU" + ":" + "ASFU_top");
-		this.output = register.registerIcon("ASFU" + ":" + "ASFU_output");
-		this.input = register.registerIcon("ASFU" + ":" + "AFSU_input");
+		this.top = register.registerIcon("AFSU" + ":" + "AFSU_top");
+		this.output = register.registerIcon("AFSU" + ":" + "AFSU_output");
+		this.input = register.registerIcon("AFSU" + ":" + "AFSU_input");
 	}
 	
 	@Override
