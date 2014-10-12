@@ -5,6 +5,7 @@ import java.util.Arrays;
 
 import org.apache.commons.lang3.mutable.MutableObject;
 
+import ic2.api.item.IC2Items;
 import ic2.api.tile.IWrenchable;
 import ic2.core.IC2;
 import ic2.core.block.TileEntityBlock;
@@ -52,51 +53,53 @@ public class AFSUBlock extends Block{
 	}
 
 	@SideOnly(Side.CLIENT)
-	  public IIcon getIcon(IBlockAccess iBlockAccess, int x, int y, int z, int side){
-	  	int facing = getFacing(iBlockAccess, x, y, z);
-	    if(facing == 0) //south
-	    	switch(side){
-	    	case 0: return this.top;
-	    	case 1: return this.top;
-	    	case 3: return this.output;
-	    	default: return this.input;
-	    }else if(facing == 1){ //west
-	    	switch(side){
-	    	case 0: return this.top;
-	    	case 1: return this.top;
-	    	case 4: return this.output;
-	    	default: return this.input;
-	    	}
-	    }else if(facing == 2){ //north
-	    	switch(side){
-	    	case 0: return this.top;
-	    	case 1: return this.top;
-	    	case 5: return this.output;
-	    	default: return this.input;
-	    	}
-	    }else if(facing == 3){ //east
-	    	switch(side){
-	    	case 0: return this.top;
-	    	case 1: return this.top;
-	    	case 2: return this.output;
-	    	default: return this.input;
-	    	}
-	    }else if(facing == 4){ //up
+	public IIcon getIcon(IBlockAccess iBlockAccess, int x, int y, int z, int side){
+		if(iBlockAccess == null) return this.output;
+		int facing = getFacing(iBlockAccess, x, y, z);
+	    if(facing == 0){ //up! WORKS!
 	    	switch(side){
 	    	case 5: return this.top;
 	    	case 3: return this.top;
 	    	case 0: return this.output;
 	    	default: return this.input;
 	    	}
-	    }else if(facing == 5){ //down
+	    }else if(facing == 2){ //south! WORKS!
+	    	switch(side){
+	    	case 0: return this.top;
+	    	case 1: return this.top;
+	    	case 2: return this.output;
+	    	default: return this.input;
+	    	}
+	    }else if(facing == 1){ //down! WORKS!
 	    	switch(side){
 	    	case 5: return this.top;
 	    	case 3: return this.top;
 	    	case 1: return this.output;
 	    	default: return this.input;
 	    	}
+	    }else if(facing == 3){ //north! WORKS!
+	    	switch(side){
+	    	case 0: return this.top;
+	    	case 1: return this.top;
+	    	case 3: return this.output;
+	    	default: return this.input;
+	    	}
+	    }else if(facing == 4){ //east! WORKS!
+	    	switch(side){
+	    	case 0: return this.top;
+	    	case 1: return this.top;
+	    	case 4: return this.output;
+	    	default: return this.input;
+	    	}
+	    }else if(facing == 5){ //west! WORKS!
+	    	switch(side){
+	    	case 0: return this.top;
+	    	case 1: return this.top;
+	    	case 5: return this.output;
+	    	default: return this.input;
+	    	}	
 	    }
-	    return null;
+	    return this.input;
 	  }
 	
 	@Override
@@ -258,7 +261,7 @@ public class AFSUBlock extends Block{
 	    }
 	    int meta = iBlockAccess.getBlockMetadata(x, y, z);
 
-	    return getFacing(meta);
+	    return 3;
 	}
 	
 	@Override
@@ -280,10 +283,6 @@ public class AFSUBlock extends Block{
 	    return false;
 	}
 	
-	protected int getFacing(int meta) {
-	    return 3;
-	}
-	
 	@Override
 	public final TileEntity createTileEntity(World world, int metadata) {
 	    return new TileEntityAFSU();
@@ -291,7 +290,7 @@ public class AFSUBlock extends Block{
 	
 	@Override
 	public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int var6, float var7, float var8, float var9){
-        if (!player.isSneaking()){
+		if (!player.isSneaking() && player.getCurrentEquippedItem().getItem() != IC2Items.getItem("wrench").getItem()){
         	player.openGui(AFSUMod.instance, 0, world, x, y, z);
             player.openGui("AFSU", 0, world, x, y, z);
             return true;
