@@ -54,7 +54,6 @@ public class AFSUBlock extends Block{
 
 	@SideOnly(Side.CLIENT)
 	public IIcon getIcon(IBlockAccess iBlockAccess, int x, int y, int z, int side){
-		if(iBlockAccess == null) return this.output;
 		int facing = getFacing(iBlockAccess, x, y, z);
 	    if(facing == 0){ //up! WORKS!
 	    	switch(side){
@@ -98,8 +97,9 @@ public class AFSUBlock extends Block{
 	    	case 5: return this.output;
 	    	default: return this.input;
 	    	}	
+	    }else{ 
+	    	return this.input;
 	    }
-	    return this.input;
 	  }
 	
 	@Override

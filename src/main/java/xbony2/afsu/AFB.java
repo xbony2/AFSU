@@ -8,9 +8,9 @@ import net.minecraft.item.ItemStack;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-public class AdvancedLapotronCrystal extends Item implements IElectricItem{
+public class AFB extends Item implements IElectricItem{
 
-	public AdvancedLapotronCrystal(){
+	public AFB(){
 		super();
 		this.setCreativeTab(IC2.tabIC2);
 		this.setUnlocalizedName("ALC");
