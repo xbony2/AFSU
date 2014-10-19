@@ -1,10 +1,12 @@
-package xbony2.afsu;
+package xbony2.afsu.blocks;
 
 import java.lang.reflect.Constructor;
 import java.util.Arrays;
 
 import org.apache.commons.lang3.mutable.MutableObject;
 
+import xbony2.afsu.AFSUMod;
+import xbony2.afsu.tileentity.TileEntityAFSU;
 import ic2.api.item.IC2Items;
 import ic2.api.tile.IWrenchable;
 import ic2.core.IC2;
@@ -290,7 +292,7 @@ public class AFSUBlock extends Block{
 	
 	@Override
 	public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int var6, float var7, float var8, float var9){
-		if (!player.isSneaking() && player.getCurrentEquippedItem().getItem() != IC2Items.getItem("wrench").getItem()){
+		if (!player.isSneaking() && player.getCurrentEquippedItem() != IC2Items.getItem("wrench")){
         	player.openGui(AFSUMod.instance, 0, world, x, y, z);
             player.openGui("AFSU", 0, world, x, y, z);
             return true;

@@ -1,4 +1,4 @@
-package xbony2.afsu;
+package xbony2.afsu.tileentity;
 
 import ic2.core.block.wiring.TileEntityElectricBlock;
 

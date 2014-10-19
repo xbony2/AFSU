@@ -1,4 +1,4 @@
-package xbony2.afsu;
+package xbony2.afsu.items;
 
 import ic2.api.item.IElectricItem;
 import ic2.core.IC2;

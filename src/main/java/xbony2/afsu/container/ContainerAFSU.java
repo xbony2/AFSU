@@ -1,4 +1,4 @@
-package xbony2.afsu;
+package xbony2.afsu.container;
 
 import net.minecraft.entity.player.EntityPlayer;
 import ic2.core.block.wiring.ContainerElectricBlock;

@@ -1,4 +1,4 @@
-package xbony2.afsu;
+package xbony2.afsu.gui;
 
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.StatCollector;
@@ -12,7 +12,7 @@ public class GuiAFSU extends GuiElectricBlock{
 	private final String armorInv;
 	private final String level;
 	private final String name;
-	private static final ResourceLocation background = new ResourceLocation(IC2.textureDomain, "textures/gui/GUIElectricBlock.png");
+	private static final ResourceLocation background = new ResourceLocation("afsu/textures/gui/GUIAFSU.png");
 
 	public GuiAFSU(ContainerElectricBlock container) {
 		super(container);

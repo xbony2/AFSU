@@ -1,5 +1,9 @@
 package xbony2.afsu;
 
+import xbony2.afsu.blocks.AFSUBlock;
+import xbony2.afsu.gui.GuiHandler;
+import xbony2.afsu.items.AFB;
+import xbony2.afsu.tileentity.TileEntityAFSU;
 import ic2.api.item.IC2Items;
 import ic2.api.recipe.Recipes;
 import net.minecraft.block.Block;
@@ -14,7 +18,7 @@ import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.network.NetworkRegistry;
 import cpw.mods.fml.common.registry.GameRegistry;
 
-@Mod(modid = "AFSU", name = "AFSU Mod", version = "1.0.0a")
+@Mod(modid = "AFSU", name = "AFSU Mod", version = "1.0.1a")
 public class AFSUMod {
 
 	@Instance
@@ -39,15 +43,16 @@ public class AFSUMod {
 	@EventHandler
 	public void postInit(FMLPostInitializationEvent event){
 		Recipes.advRecipes.addRecipe(new ItemStack(alc), new Object[]{
-			"IGI", "CIC", "ICI",
+			"IGI", "CBC", "ICI",
 				'I', IC2Items.getItem("iridiumPlate"),
 				'G', IC2Items.getItem("glassFiberCableItem"),
+				'B', IC2Items.getItem("lapotronCrystal"),
 				'C', "circuitAdvanced"});
 		
 		Recipes.advRecipes.addRecipe(new ItemStack(afsu), new Object[]{
 			"IGI", "GMG", "IGI",
 				'I', IC2Items.getItem("iridiumPlate"),
-				'G', IC2Items.getItem("glassFiberCableItem"),
+				'G', alc,
 				'M', IC2Items.getItem("mfsUnit")});
 	}
 }

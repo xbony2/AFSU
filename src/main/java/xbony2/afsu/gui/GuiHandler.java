@@ -1,5 +1,7 @@
-package xbony2.afsu;
+package xbony2.afsu.gui;
 
+import xbony2.afsu.container.ContainerAFSU;
+import xbony2.afsu.tileentity.TileEntityAFSU;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
