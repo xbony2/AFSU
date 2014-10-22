@@ -42,12 +42,11 @@ public class AFSUMod {
 	
 	@EventHandler
 	public void postInit(FMLPostInitializationEvent event){
-		if(IC2Items.getItem("UuMatterCell") == null) BonyDebugger.debug();
-		/*Recipes.advRecipes.addRecipe(new ItemStack(alc), new Object[]{
+		Recipes.advRecipes.addRecipe(new ItemStack(alc), new Object[]{
 			"GIG", "IUI", "GIG",
 				'G', IC2Items.getItem("glassFiberCableItem"),
 				'I', IC2Items.getItem("iridiumPlate"),
-				'U', IC2Items.getItem("UuMatterCell")});*/
+				'U', IC2Items.getItem("uuMatterCell")});
 		
 		Recipes.advRecipes.addRecipe(new ItemStack(afsu), new Object[]{
 			"MGM", "IAI", "MGM",
