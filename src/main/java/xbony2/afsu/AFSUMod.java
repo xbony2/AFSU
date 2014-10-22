@@ -42,17 +42,18 @@ public class AFSUMod {
 	
 	@EventHandler
 	public void postInit(FMLPostInitializationEvent event){
-		Recipes.advRecipes.addRecipe(new ItemStack(alc), new Object[]{
-			"IGI", "CBC", "ICI",
-				'I', IC2Items.getItem("iridiumPlate"),
+		if(IC2Items.getItem("UuMatterCell") == null) BonyDebugger.debug();
+		/*Recipes.advRecipes.addRecipe(new ItemStack(alc), new Object[]{
+			"GIG", "IUI", "GIG",
 				'G', IC2Items.getItem("glassFiberCableItem"),
-				'B', IC2Items.getItem("lapotronCrystal"),
-				'C', "circuitAdvanced"});
+				'I', IC2Items.getItem("iridiumPlate"),
+				'U', IC2Items.getItem("UuMatterCell")});*/
 		
 		Recipes.advRecipes.addRecipe(new ItemStack(afsu), new Object[]{
-			"IGI", "GMG", "IGI",
+			"MGM", "IAI", "MGM",
 				'I', IC2Items.getItem("iridiumPlate"),
-				'G', alc,
-				'M', IC2Items.getItem("mfsUnit")});
+				'G', IC2Items.getItem("glassFiberCableItem"),
+				'M', IC2Items.getItem("mfsUnit"),
+				'A', alc});
 	}
 }
