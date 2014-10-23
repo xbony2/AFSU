@@ -15,6 +15,7 @@ import cpw.mods.fml.common.Mod.EventHandler;
 import cpw.mods.fml.common.Mod.Instance;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
+import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.network.NetworkRegistry;
 import cpw.mods.fml.common.registry.GameRegistry;
 
@@ -28,7 +29,12 @@ public class AFSUMod {
 	public static Item alc;
 	
 	@EventHandler
-	public void init(FMLInitializationEvent event){
+	public void preInit(FMLPreInitializationEvent event){
+		ConfigHandler.init(event.getSuggestedConfigurationFile());
+	}
+	
+	@EventHandler
+	public void init(FMLInitializationEvent event){		
 		afsu = new AFSUBlock();
 		alc = new AFB();
 		
