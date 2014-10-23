@@ -103,7 +103,22 @@ public class AFSUBlock extends Block{
 	    	return this.input;
 	    }
 	  }
-	
+        
+        @Override
+        @SideOnly(Side.CLIENT)
+        public IIcon getIcon(int side, int metadata) {
+                switch(side) {
+                        case 0:
+                                return top;
+                        case 1:
+                                return top;
+                        case 5:
+                                return output;
+                        default:
+                                return input;
+                }
+        }
+        
 	@Override
 	@SideOnly(Side.CLIENT)
 	public void registerBlockIcons(IIconRegister register){
