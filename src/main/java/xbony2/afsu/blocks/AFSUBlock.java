@@ -53,7 +53,11 @@ public class AFSUBlock extends Block{
 		this.setStepSound(soundTypeMetal);
 		this.setBlockName("AFSU");
 	}
-
+	
+	/**
+	 * World only
+	 */
+	@Override
 	@SideOnly(Side.CLIENT)
 	public IIcon getIcon(IBlockAccess iBlockAccess, int x, int y, int z, int side){
 		int facing = getFacing(iBlockAccess, x, y, z);
@@ -98,27 +102,26 @@ public class AFSUBlock extends Block{
 	    	case 1: return this.top;
 	    	case 5: return this.output;
 	    	default: return this.input;
-	    	}	
+	    	}
 	    }else{ 
 	    	return this.input;
 	    }
-	  }
-        
-        @Override
-        @SideOnly(Side.CLIENT)
-        public IIcon getIcon(int side, int metadata) {
-                switch(side) {
-                        case 0:
-                                return top;
-                        case 1:
-                                return top;
-                        case 5:
-                                return output;
-                        default:
-                                return input;
-                }
-        }
-        
+	}
+	
+	/**
+	 * Hand only (side- not west or east
+	 */
+	@Override
+	@SideOnly(Side.CLIENT)
+	public IIcon getIcon(int side, int metadata){
+		switch(side){
+    	case 0: return this.top;
+    	case 1: return this.top;
+    	case 3: return this.output;
+    	default: return this.input;
+    	}
+	}
+	
 	@Override
 	@SideOnly(Side.CLIENT)
 	public void registerBlockIcons(IIconRegister register){
@@ -198,6 +201,7 @@ public class AFSUBlock extends Block{
 	    return true;
 	}
 	
+	@Override
 	public int getComparatorInputOverride(World world, int x, int y, int z, int side){
 	    TileEntityBlock te = (TileEntityBlock)getOwnTe(world, x, y, z);
 	    if (!(te instanceof TileEntityBlock)) return 0;
