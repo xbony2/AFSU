@@ -27,7 +27,8 @@ public class GuiAFSU extends GuiContainer{
 	public GuiAFSU(ContainerElectricBlock container) {
 		super(container);
 		
-		this.ySize = 196;
+		this.xSize = 176;
+		this.ySize = 166;
 	    this.container = container;
 	    this.armorInv = StatCollector.translateToLocal("ic2.EUStorage.gui.info.armor");
 	    this.level = StatCollector.translateToLocal("ic2.EUStorage.gui.info.level");
@@ -37,7 +38,7 @@ public class GuiAFSU extends GuiContainer{
 	@Override
 	public void initGui(){
 	    super.initGui();
-	    this.buttonList.add(new GuiIconButton(0, (this.width - this.xSize) / 2 + 152, (this.height - this.ySize) / 2 + 4, 20, 20, new ItemStack(Items.redstone), true));
+	    this.buttonList.add(new GuiIconButton(0, 10, 7, 20, 20, new ItemStack(Items.redstone), true));
 	}
 
 	@Override
