@@ -6,6 +6,7 @@ import java.util.Arrays;
 import org.apache.commons.lang3.mutable.MutableObject;
 
 import xbony2.afsu.AFSUMod;
+import xbony2.afsu.ConfigHandler;
 import xbony2.afsu.tileentity.TileEntityAFSU;
 import ic2.api.item.IC2Items;
 import ic2.api.tile.IWrenchable;
@@ -125,9 +126,9 @@ public class AFSUBlock extends Block{
 	@Override
 	@SideOnly(Side.CLIENT)
 	public void registerBlockIcons(IIconRegister register){
-		this.top = register.registerIcon("AFSU" + ":" + "AFSU_top");
-		this.output = register.registerIcon("AFSU" + ":" + "AFSU_output");
-		this.input = register.registerIcon("AFSU" + ":" + "AFSU_input");
+		this.top = register.registerIcon("AFSU" + ":" + "AFSU_top_" + ConfigHandler.afsutexture);
+		this.output = register.registerIcon("AFSU" + ":" + "AFSU_output_" + ConfigHandler.afsutexture);
+		this.input = register.registerIcon("AFSU" + ":" + "AFSU_input_" + ConfigHandler.afsutexture);
 	}
 	
 	@Override
