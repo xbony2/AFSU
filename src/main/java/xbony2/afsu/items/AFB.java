@@ -1,15 +1,23 @@
 package xbony2.afsu.items;
 
+import xbony2.afsu.ConfigHandler;
 import ic2.api.item.IElectricItem;
 import ic2.core.IC2;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.IIcon;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
 public class AFB extends Item implements IElectricItem{
-
+	@SideOnly(Side.CLIENT)
+	private IIcon empty;
+	@SideOnly(Side.CLIENT)
+	private IIcon partly;
+	@SideOnly(Side.CLIENT)
+	private IIcon full;
+	
 	public AFB(){
 		super();
 		this.setCreativeTab(IC2.tabIC2);
@@ -21,7 +29,17 @@ public class AFB extends Item implements IElectricItem{
 	@Override
 	@SideOnly(Side.CLIENT)
 	public void registerIcons(IIconRegister register){
-		this.itemIcon = register.registerIcon("AFSU" + ":" + "alc");
+		this.empty = register.registerIcon("AFSU" + ":" + "alcempty_" + ConfigHandler.afbtexture);
+		this.partly = register.registerIcon("AFSU" + ":" + "alcpartly_" + ConfigHandler.afbtexture);
+		this.full = register.registerIcon("AFSU" + ":" + "alcfull_" + ConfigHandler.afbtexture);
+	}
+	
+	@Override
+	@SideOnly(Side.CLIENT)
+	public IIcon getIconFromDamage(int damage){
+		if(damage <= 100000) return empty;
+		if(damage <= 99000000) return partly;
+		else return full;
 	}
 
 	@Override

@@ -223,85 +223,79 @@ public class AFSUBlock extends Block{
 	}
 	
 	public TileEntity getOwnTe(IBlockAccess blockAccess, int x, int y, int z){
-	    TileEntity te;
+		TileEntity te;
 	    Block block;
 	    int meta;
 	    if ((blockAccess instanceof World)) {
-	      World world = (World)blockAccess;
-	      Chunk chunk;
-	      if ((world.getChunkProvider() instanceof ChunkProviderServer)) {
-	        ChunkProviderServer cps = (ChunkProviderServer)world.getChunkProvider();
-	        chunk = (Chunk)cps.loadedChunkHashMap.getValueByKey(ChunkCoordIntPair.chunkXZ2Int(x >> 4, z >> 4));
-	      }else{
-	        chunk = world.getChunkFromBlockCoords(x, z);
-	      }
+	    	World world = (World)blockAccess;
+	    	Chunk chunk;
+	    	if ((world.getChunkProvider() instanceof ChunkProviderServer)) {
+	    		ChunkProviderServer cps = (ChunkProviderServer)world.getChunkProvider();
+	    		chunk = (Chunk)cps.loadedChunkHashMap.getValueByKey(ChunkCoordIntPair.chunkXZ2Int(x >> 4, z >> 4));
+	    	}else{
+	    		chunk = world.getChunkFromBlockCoords(x, z);
+	    	}
 
-	      if ((chunk == null) || ((chunk instanceof EmptyChunk))) return null;
+	    	if ((chunk == null) || ((chunk instanceof EmptyChunk))) return null;
 
-	      block = chunk.getBlock(x & 0xF, y, z & 0xF);
-	      meta = chunk.getBlockMetadata(x & 0xF, y, z & 0xF);
-	      te = chunk.func_150806_e(x & 0xF, y, z & 0xF);
-	    }else{
-	      block = blockAccess.getBlock(x, y, z);
-	      meta = blockAccess.getBlockMetadata(x, y, z);
-	      te = blockAccess.getTileEntity(x, y, z);
+	    		block = chunk.getBlock(x & 0xF, y, z & 0xF);
+	    		meta = chunk.getBlockMetadata(x & 0xF, y, z & 0xF);
+	    		te = chunk.func_150806_e(x & 0xF, y, z & 0xF);
+	      	}else{
+	      		block = blockAccess.getBlock(x, y, z);
+	      		meta = blockAccess.getBlockMetadata(x, y, z);
+	      		te = blockAccess.getTileEntity(x, y, z);
 	    }
 
 	    Class expectedClass = getTeClass(meta, null, null);
 	    Class actualClass = te != null ? te.getClass() : null;
 
 	    if (actualClass != expectedClass) {
-	      if (block != this) {
-	        if (Util.inDev()) {
-	          StackTraceElement[] st = new Throwable().getStackTrace();
-	          IC2.log.warn("Own tile entity query from {} to foreign block {} instead of {} at dim {}, {}/{}/{}.", new Object[] { st.length > 1 ? st[1] : "?", block != null ? block.getClass() : null, getClass(), (blockAccess instanceof World) ? Integer.valueOf(((World)blockAccess).provider.dimensionId) : "?", Integer.valueOf(x), Integer.valueOf(y), Integer.valueOf(z) });
-	        }
+	    	if (block != this) {
+	    		if (Util.inDev()) {
+	    			StackTraceElement[] st = new Throwable().getStackTrace();
+	    			IC2.log.warn("Own tile entity query from {} to foreign block {} instead of {} at dim {}, {}/{}/{}.", new Object[] { st.length > 1 ? st[1] : "?", block != null ? block.getClass() : null, getClass(), (blockAccess instanceof World) ? Integer.valueOf(((World)blockAccess).provider.dimensionId) : "?", Integer.valueOf(x), Integer.valueOf(y), Integer.valueOf(z) });
+	    		}
+	    		return null;
+	    	}
+	    	IC2.log.warn("Mismatched tile entity at dim {}, {}/{}/{}, got {}, expected {}.", new Object[] { (blockAccess instanceof World) ? Integer.valueOf(((World)blockAccess).provider.dimensionId) : "?", Integer.valueOf(x), Integer.valueOf(y), Integer.valueOf(z), actualClass, expectedClass });
 
+	    	if ((blockAccess instanceof World)) {
+	    		World world = (World)blockAccess;
+
+	    		te = createTileEntity(world, meta);
+	    		world.setTileEntity(x, y, z, te);
+	    	}else{
 	        return null;
-	      }
-
-	      IC2.log.warn("Mismatched tile entity at dim {}, {}/{}/{}, got {}, expected {}.", new Object[] { (blockAccess instanceof World) ? Integer.valueOf(((World)blockAccess).provider.dimensionId) : "?", Integer.valueOf(x), Integer.valueOf(y), Integer.valueOf(z), actualClass, expectedClass });
-
-	      if ((blockAccess instanceof World)) {
-	        World world = (World)blockAccess;
-
-	        te = createTileEntity(world, meta);
-	        world.setTileEntity(x, y, z, te);
-	      } else {
-	        return null;
-	      }
+	    	}
 	    }
-
 	    return te;
 	}
 	
 	public int getFacing(IBlockAccess iBlockAccess, int x, int y, int z){
-	    TileEntity te = getOwnTe(iBlockAccess, x, y, z);
+		TileEntity te = getOwnTe(iBlockAccess, x, y, z);
 
 	    if ((te instanceof TileEntityBlock)) {
-	      return ((TileEntityBlock)te).getFacing();
+	    	return ((TileEntityBlock)te).getFacing();
 	    }
 	    int meta = iBlockAccess.getBlockMetadata(x, y, z);
-
 	    return 3;
 	}
 	
 	@Override
 	public boolean rotateBlock(World worldObj, int x, int y, int z, ForgeDirection axis){
 	    if (axis == ForgeDirection.UNKNOWN) return false;
-
 	    TileEntity tileEntity = getOwnTe(worldObj, x, y, z);
 
 	    if ((tileEntity instanceof IWrenchable)) {
-	      IWrenchable te = (IWrenchable)tileEntity;
+	    	IWrenchable te = (IWrenchable)tileEntity;
 
-	      int newFacing = ForgeDirection.getOrientation(te.getFacing()).getRotation(axis).ordinal();
+	    	int newFacing = ForgeDirection.getOrientation(te.getFacing()).getRotation(axis).ordinal();
 
-	      if (te.wrenchCanSetFacing(null, newFacing)) {
-	        te.setFacing((short)newFacing);
-	      }
+	    	if (te.wrenchCanSetFacing(null, newFacing)) {
+	    		te.setFacing((short)newFacing);
+	    	}
 	    }
-
 	    return false;
 	}
 	
@@ -316,9 +310,7 @@ public class AFSUBlock extends Block{
         	player.openGui(AFSUMod.instance, 0, world, x, y, z);
             player.openGui("AFSU", 0, world, x, y, z);
             return true;
-        }else{
-            return false;
-        }
+        }else return false;
     }
 
 }
