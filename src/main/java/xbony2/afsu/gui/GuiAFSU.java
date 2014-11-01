@@ -28,7 +28,7 @@ public class GuiAFSU extends GuiContainer{
 	public GuiAFSU(ContainerAFSU container) {
 		super(container);
 		
-		this.xSize = 176;
+		this.xSize = 176; //Is alright
 		this.ySize = 166;
 	    this.container = container;
 	    this.armorInv = StatCollector.translateToLocal("ic2.EUStorage.gui.info.armor");
@@ -62,9 +62,9 @@ public class GuiAFSU extends GuiContainer{
 	protected void drawGuiContainerBackgroundLayer(float f, int x, int y){
 		GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
 	    this.mc.getTextureManager().bindTexture(background);
-	    int j = (this.width - this.xSize) / 2;
-	    int k = (this.height - this.ySize) / 2;
-	    drawTexturedModalRect(j, k, 0, 0, this.xSize, this.ySize);
+	    int j = (this.width - this.xSize) / 2; //Good here
+	    int k = (this.height - this.ySize) / 2; //good here
+	    drawTexturedModalRect(j, k, 0, 0, this.xSize, this.ySize);//?
 	    if (((TileEntityAFSU)this.container.base).energy > 0.0D) {
 	    	int i1 = (int)(176.0F /*<-width of bar*/ * ((TileEntityAFSU)this.container.base).getChargeLevel());
 	     	drawTexturedModalRect(j + 8/*x of placement*/, k + 73 /*y of placement*/, 1/*x of bar*/, 251/*y of bar*/, i1 + 1, 5/*<-Height of bar*/);
@@ -77,5 +77,4 @@ public class GuiAFSU extends GuiContainer{
 	    if (guibutton.id == 0)
 	    	((NetworkManager)IC2.network.get()).initiateClientTileEntityEvent((TileEntity)this.container.base, 0);
 		}
-
 }
