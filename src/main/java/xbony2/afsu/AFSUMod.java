@@ -19,7 +19,7 @@ import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.network.NetworkRegistry;
 import cpw.mods.fml.common.registry.GameRegistry;
 
-@Mod(modid = "AFSU", name = "AFSU Mod", version = "1.0.1a")
+@Mod(modid = "AFSU", name = "AFSU Mod", version = "1.1.0a-Beta")
 public class AFSUMod {
 
 	@Instance

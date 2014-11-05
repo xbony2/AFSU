@@ -73,14 +73,9 @@ public class GuiAFSU extends GuiContainer{
 	    int k = (this.height - this.ySize) / 2; //good here
 	    this.drawTexturedModalRect(j, k, 0, 0, this.xSize, this.ySize);//?
 	    if (((TileEntityAFSU)this.container.base).energy > 0.0D) {
-	    	float barwidth = 176.0F;
-	    	int xPlacementOfBar = 8;
-	    	int yPlacementOfBar = 73;
-	    	int xLocationOfBar = 0;
-	    	int yLocationOfBar = 251;
-	    	int barHeight = 5;
-	    	int i1 = (int)(barwidth * ((TileEntityAFSU)this.container.base).getChargeLevel());
-	     	drawTexturedModalRect(j + xPlacementOfBar, k + yPlacementOfBar, xLocationOfBar, yLocationOfBar, i1 + 1, barHeight);
+	    	int i1 = (int)(ConfigHandler.AFSUbarWidth * ((TileEntityAFSU)this.container.base).getChargeLevel());
+	     	drawTexturedModalRect(j + ConfigHandler.AFSUBarxPlacement, k + ConfigHandler.AFSUBaryPlacement, 
+	     			ConfigHandler.AFSUBarxLocation, ConfigHandler.AFSUBaryLocation, i1 + 1, ConfigHandler.AFSUBarHeight);
 	    }
 	}
 

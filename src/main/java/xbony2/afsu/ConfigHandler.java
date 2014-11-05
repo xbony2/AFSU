@@ -35,6 +35,18 @@ public class ConfigHandler {
 	public static int AFSUToolTipminy;
 	public static int AFSUToolTipmaxx;
 	public static int AFSUToolTipmaxy;
+	public static float AFSUbarWidth;
+	public static int AFSUBarxPlacement;
+	public static int AFSUBaryPlacement;
+	public static int AFSUBarxLocation;
+	public static int AFSUBaryLocation;
+	public static int AFSUBarHeight;
+	public static int AFSUArmxDispPosition;
+	public static int AFSUArmyDispPosition;
+	public static int AFSUCxDispPosition;
+	public static int AFSUCyDispPosition;
+	public static int AFSUDxDispPosition;
+	public static int AFSUDyDispPosition;
 	
 	public static void init(File file){
 		Configuration config = new Configuration(file);
@@ -65,6 +77,18 @@ public class ConfigHandler {
 			AFSUToolTipminy = config.getInt("toolTipMinY", "GUI", 7, 0, Integer.MAX_VALUE, WARNING);
 			AFSUToolTipmaxx = config.getInt("toolTipMaxX", "GUI", 29, 0, Integer.MAX_VALUE, WARNING);
 			AFSUToolTipmaxy = config.getInt("toolTipMaxY", "GUI", 26, 0, Integer.MAX_VALUE, WARNING);
+			AFSUbarWidth = config.getFloat("barWidth", "GUI", 176.0F, 0F, Integer.MAX_VALUE, WARNING);
+			AFSUBarxPlacement = config.getInt("barXPlacement", "GUI", 8, 0, Integer.MAX_VALUE, WARNING);
+			AFSUBaryPlacement = config.getInt("barYPlacement", "GUI", 73, 0, Integer.MAX_VALUE, WARNING);
+			AFSUBarxLocation = config.getInt("barXLocation", "GUI", 0, 0, Integer.MAX_VALUE, WARNING);
+			AFSUBaryLocation = config.getInt("barYLocation", "GUI", 251, 0, Integer.MAX_VALUE, WARNING);
+			AFSUBarHeight = config.getInt("barHeight", "GUI", 5, 0, Integer.MAX_VALUE, WARNING);
+			AFSUArmxDispPosition = config.getInt("ArmXDispPosition", "ContainerGUI", 152, 0, Integer.MAX_VALUE, WARNING);
+			AFSUArmyDispPosition = config.getInt("ArmYDispPosition", "ContainerGUI", 5, 0, Integer.MAX_VALUE, WARNING);
+			AFSUCxDispPosition = config.getInt("CXDispPosition", "ContainerGUI", 128, 0, Integer.MAX_VALUE, WARNING);
+			AFSUCyDispPosition = config.getInt("CYDispPosition", "ContainerGUI", 13, 0, Integer.MAX_VALUE, WARNING);
+			AFSUDxDispPosition = config.getInt("DXDispPosition", "ContainerGUI", 128, 0, Integer.MAX_VALUE, WARNING);
+			AFSUDyDispPosition = config.getInt("DYDispPosition", "ContainerGUI", 50, 0, Integer.MAX_VALUE, WARNING);
 		}
 		config.save();
 	}
