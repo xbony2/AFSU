@@ -266,7 +266,7 @@ public class AFSUBlock extends Block{
 
     @Override
     public void breakBlock(World world, int xCoord, int yCoord, int zCoord, Block block, int par6) {
-        if (!world.isRemote) {
+        if (world.isRemote) {
             return;
         }
         TileEntity tile = world.getTileEntity(xCoord, yCoord, zCoord);
