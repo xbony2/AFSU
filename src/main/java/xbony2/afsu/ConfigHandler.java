@@ -8,7 +8,7 @@ public class ConfigHandler {
 	public static String afsutexture;
 	public static String afbtexture;
 
-	private static final String[] usableValuesAFSU = new String[] {"default", "blue", "yellow", "black", "old"};
+	private static final String[] usableValuesAFSU = new String[] {"default", "blue", "yellow", "black", "old", "chloe1", "chloe2", "chloe3"};
 	private static final String[] usableValuesAFB = new String[] {"default"};
 
 	private static final String WARNING = "DO NOT CHANGE THIS IF YOU DONT KNOW WHAT YOU ARE DOING";
@@ -52,7 +52,8 @@ public class ConfigHandler {
 		Configuration config = new Configuration(file);
 
 		config.load();
-			afsutexture = config.getString("AFSU Texture", "Textures", "default", "Changes the texture of the AFSU. Possible values: default, blue, yellow, black, old", usableValuesAFSU);
+		{
+			afsutexture = config.getString("AFSU Texture", "Textures", "default", "Changes the texture of the AFSU. Possible values: default, blue, yellow, black, old, chloe1, chloe2, chloe3", usableValuesAFSU);
 			afbtexture = config.getString("AFB Texture", "Textures", "default", "Changes the texture of the AFB. Possible values: default", usableValuesAFB);
 			AFSUxSize = config.getInt("xSize", "GUI", 176, 0, Integer.MAX_VALUE, WARNING);
 			AFSUySize = config.getInt("ySize", "GUI", 166, 0, Integer.MAX_VALUE, WARNING);
@@ -88,6 +89,7 @@ public class ConfigHandler {
 			AFSUCyDispPosition = config.getInt("CYDispPosition", "ContainerGUI", 14, 0, Integer.MAX_VALUE, WARNING);
 			AFSUDxDispPosition = config.getInt("DXDispPosition", "ContainerGUI", 128, 0, Integer.MAX_VALUE, WARNING);
 			AFSUDyDispPosition = config.getInt("DYDispPosition", "ContainerGUI", 50, 0, Integer.MAX_VALUE, WARNING);
+		}
 		config.save();
 	}
 }

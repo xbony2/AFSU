@@ -1,8 +1,8 @@
 package xbony2.afsu;
 
 import xbony2.afsu.blocks.AFSUBlock;
+import xbony2.afsu.blocks.ItemBlockAFSU;
 import xbony2.afsu.gui.GuiHandler;
-import xbony2.afsu.itemblocks.ItemBlockAFSU;
 import xbony2.afsu.items.AFB;
 import xbony2.afsu.tileentity.TileEntityAFSU;
 import ic2.api.item.IC2Items;

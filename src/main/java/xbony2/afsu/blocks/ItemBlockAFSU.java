@@ -1,4 +1,4 @@
-package xbony2.afsu.itemblocks;
+package xbony2.afsu.blocks;
 
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
