@@ -17,16 +17,16 @@ public class ContainerAFSU extends ContainerFullInv<TileEntityAFSU>{
 		super(player, tileentity, ConfigHandler.AFSUxSize);
 		for (int i = 0; i < 4; i++){
 			//this.addSlotToContainer(new SlotArmor(entityPlayer.inventory, i, 8 + i * 18, 84)); <-default
-			this.addSlotToContainer(new SlotArmor(player.inventory, i, ConfigHandler.AFSUArmxDispPosition, 
+			super.addSlotToContainer(new SlotArmor(player.inventory, i, ConfigHandler.AFSUArmxDispPosition,
 					ConfigHandler.AFSUArmyDispPosition + i * 18));
 		}
-		
-		this.addSlotToContainer(new SlotInvSlot(tileentity.chargeSlot, 0, ConfigHandler.AFSUCxDispPosition, 
+
+        super.addSlotToContainer(new SlotInvSlot(tileentity.chargeSlot, 0, ConfigHandler.AFSUCxDispPosition,
 				ConfigHandler.AFSUCyDispPosition));
-	    this.addSlotToContainer(new SlotInvSlot(tileentity.dischargeSlot, 0, ConfigHandler.AFSUDxDispPosition, 
+        super.addSlotToContainer(new SlotInvSlot(tileentity.dischargeSlot, 0, ConfigHandler.AFSUDxDispPosition,
 	    		ConfigHandler.AFSUDyDispPosition));
 	}
-	
+
 	@Override
 	public List<String> getNetworkedFields(){
 	    List<String> list = super.getNetworkedFields();

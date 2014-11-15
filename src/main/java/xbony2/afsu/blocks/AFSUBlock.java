@@ -34,8 +34,8 @@ import java.util.List;
 
 public class AFSUBlock extends Block{
 
-	@SideOnly(Side.CLIENT)
-	private IIcon top, output, input;
+    @SideOnly(Side.CLIENT)
+    private IIcon top, output, input;
 
 	public AFSUBlock() {
 		super(Material.iron);
@@ -44,7 +44,7 @@ public class AFSUBlock extends Block{
 		this.setStepSound(soundTypeMetal);
 		this.setBlockName("AFSU");
 	}
-	
+
 	/**
 	 * World only
 	 */
@@ -126,7 +126,7 @@ public class AFSUBlock extends Block{
         }
         return null;
 	}
-	
+
 	/**
 	 * Hand only (side- not west or east
 	 */
@@ -140,7 +140,7 @@ public class AFSUBlock extends Block{
     	default: return this.input;
     	}
 	}
-	
+
 	@Override
 	@SideOnly(Side.CLIENT)
 	public void registerBlockIcons(IIconRegister register){
@@ -148,7 +148,7 @@ public class AFSUBlock extends Block{
 		this.output = register.registerIcon("AFSU" + ":" + "AFSU_output_" + ConfigHandler.afsutexture);
 		this.input = register.registerIcon("AFSU" + ":" + "AFSU_input_" + ConfigHandler.afsutexture);
 	}
-	
+
 	@Override
 	public int isProvidingWeakPower(IBlockAccess blockAccess, int x, int y, int z, int side) {
         TileEntity tile = blockAccess.getTileEntity(x, y, z);
@@ -157,7 +157,7 @@ public class AFSUBlock extends Block{
         }
         return super.isProvidingWeakPower(blockAccess, x, y, z, side);
 	}
-	
+
 	@Override
 	public boolean canProvidePower(){
 	    return true;
@@ -191,12 +191,12 @@ public class AFSUBlock extends Block{
     private static short convertIntegerToShort(int integer_n) {
         return new Integer(integer_n).shortValue();
     }
-	
+
 	@Override
 	public boolean hasComparatorInputOverride(){
 	    return true;
 	}
-	
+
 	@Override
 	public int getComparatorInputOverride(World world, int x, int y, int z, int side){
         TileEntity tile = world.getTileEntity(x, y, z);
@@ -206,7 +206,7 @@ public class AFSUBlock extends Block{
         }
         return super.getComparatorInputOverride(world, x, y, z, side);
     }
-	
+
 	@Override
 	public final boolean hasTileEntity(int metadata){
 	    return true;
@@ -216,7 +216,7 @@ public class AFSUBlock extends Block{
 	public boolean canCreatureSpawn(EnumCreatureType type, IBlockAccess world, int x, int y, int z){
 	    return false;
 	}
-	
+
 	@Override
 	public boolean rotateBlock(World worldObj, int x, int y, int z, ForgeDirection axis){
 	    if (axis == ForgeDirection.UNKNOWN) return false;
@@ -234,7 +234,7 @@ public class AFSUBlock extends Block{
 	    }
 	    return false;
 	}
-	
+
 	@Override
 	public final TileEntity createTileEntity(World world, int metadata) {
 	    return new TileEntityAFSU();
@@ -259,6 +259,7 @@ public class AFSUBlock extends Block{
         stackList.add(zeroStack);
         ItemStack fullStack = new ItemStack(this, 1, 1);
         StackUtil.getOrCreateNbtData(fullStack).setInteger("energy", TileEntityAFSU.MAX_STORAGE);
+        stackList.add(fullStack);
     }
 
 }
