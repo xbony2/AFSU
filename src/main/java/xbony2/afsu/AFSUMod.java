@@ -18,7 +18,7 @@ import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.network.NetworkRegistry;
 import cpw.mods.fml.common.registry.GameRegistry;
 
-@Mod(modid = AFSUMod.AFSU_MODID, name = "AFSU Mod", version = "1.1.1a-Beta", dependencies = "required-after:IC2")
+@Mod(modid = AFSUMod.AFSU_MODID, name = "AFSU Mod", version = "@VERSION@", dependencies = "required-after:IC2")
 public class AFSUMod {
 
     public static final String AFSU_MODID = "AFSU";

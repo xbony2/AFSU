@@ -12,7 +12,7 @@ import ic2.core.slot.SlotInvSlot;
 public class ContainerAFSU extends ContainerFullInv<TileEntityAFSU> {
 
 	public ContainerAFSU(EntityPlayer player, TileEntityAFSU tileentity) {
-		super(player, tileentity, ConfigHandler.AFSUxSize - 1, ConfigHandler.AFSUySize);
+		super(player, tileentity, ConfigHandler.AFSUxSize + 3, ConfigHandler.AFSUySize);
 		for (int i = 0; i < 4; i++){
 			//this.addSlotToContainer(new SlotArmor(entityPlayer.inventory, i, 8 + i * 18, 84)); //<-default
 			addSlotToContainer(new SlotArmor(player.inventory, i, ConfigHandler.AFSUArmxDispPosition,
