@@ -15,7 +15,6 @@ public class ContainerAFSU extends ContainerFullInv<TileEntityAFSU>{
 
 	public ContainerAFSU(EntityPlayer player, TileEntityAFSU tileentity) {
 		super(player, tileentity, ConfigHandler.AFSUxSize);
-		
 		for (int i = 0; i < 4; i++){
 			//this.addSlotToContainer(new SlotArmor(entityPlayer.inventory, i, 8 + i * 18, 84)); <-default
 			this.addSlotToContainer(new SlotArmor(player.inventory, i, ConfigHandler.AFSUArmxDispPosition, 
@@ -30,7 +29,7 @@ public class ContainerAFSU extends ContainerFullInv<TileEntityAFSU>{
 	
 	@Override
 	public List<String> getNetworkedFields(){
-	    List list = super.getNetworkedFields();
+	    List<String> list = super.getNetworkedFields();
 	    list.add("energy");
 	    list.add("redstoneMode");
 	    return list;
