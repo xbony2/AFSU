@@ -11,13 +11,10 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
 public class AFB extends Item implements IElectricItem{
+
 	@SideOnly(Side.CLIENT)
-	private IIcon empty;
-	@SideOnly(Side.CLIENT)
-	private IIcon partly;
-	@SideOnly(Side.CLIENT)
-	private IIcon full;
-	
+	private IIcon empty, partly, full;
+
 	public AFB(){
 		super();
 		this.setCreativeTab(IC2.tabIC2);
@@ -59,7 +56,7 @@ public class AFB extends Item implements IElectricItem{
 
 	@Override
 	public double getMaxCharge(ItemStack itemStack) {
-		return 100000000; //One hundred million
+		return 100000000.0D; //One hundred million
 	}
 
 	@Override
@@ -69,6 +66,6 @@ public class AFB extends Item implements IElectricItem{
 
 	@Override
 	public double getTransferLimit(ItemStack itemStack) {
-		return 131072;
+		return 131072.0D;
 	}
 }

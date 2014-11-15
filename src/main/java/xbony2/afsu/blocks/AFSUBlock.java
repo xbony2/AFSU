@@ -1,10 +1,11 @@
 package xbony2.afsu.blocks;
 
-import java.lang.reflect.Constructor;
-import java.util.Arrays;
-
-import org.apache.commons.lang3.mutable.MutableObject;
-
+import net.minecraft.block.BlockPistonBase;
+import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.entity.item.EntityItem;
+import net.minecraft.inventory.IInventory;
+import net.minecraft.item.Item;
+import net.minecraft.util.ChatComponentTranslation;
 import xbony2.afsu.AFSUMod;
 import xbony2.afsu.ConfigHandler;
 import xbony2.afsu.tileentity.TileEntityAFSU;
@@ -25,28 +26,19 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.IIcon;
-import net.minecraft.util.MathHelper;
-import net.minecraft.world.ChunkCoordIntPair;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
-import net.minecraft.world.chunk.Chunk;
-import net.minecraft.world.chunk.EmptyChunk;
-import net.minecraft.world.gen.ChunkProviderServer;
 import net.minecraftforge.common.util.ForgeDirection;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
+import java.util.List;
+
 public class AFSUBlock extends Block{
 
-	@SideOnly(Side.CLIENT)
-	private IIcon top;
-	@SideOnly(Side.CLIENT)
-	private IIcon output;
-	@SideOnly(Side.CLIENT)
-	private IIcon input;
-	private static final Class<?>[] emptyClassArray = new Class[0];
-	private static final Object[] emptyObjArray = new Object[0];
-	
+    @SideOnly(Side.CLIENT)
+    private IIcon top, output, input;
+
 	public AFSUBlock() {
 		super(Material.iron);
 		this.setCreativeTab(IC2.tabIC2);
@@ -54,61 +46,89 @@ public class AFSUBlock extends Block{
 		this.setStepSound(soundTypeMetal);
 		this.setBlockName("AFSU");
 	}
-	
+
 	/**
 	 * World only
 	 */
 	@Override
 	@SideOnly(Side.CLIENT)
 	public IIcon getIcon(IBlockAccess iBlockAccess, int x, int y, int z, int side){
-		int facing = getFacing(iBlockAccess, x, y, z);
-	    if(facing == 0){ //up! WORKS!
-	    	switch(side){
-	    	case 5: return this.top;
-	    	case 3: return this.top;
-	    	case 0: return this.output;
-	    	default: return this.input;
-	    	}
-	    }else if(facing == 2){ //south! WORKS!
-	    	switch(side){
-	    	case 0: return this.top;
-	    	case 1: return this.top;
-	    	case 2: return this.output;
-	    	default: return this.input;
-	    	}
-	    }else if(facing == 1){ //down! WORKS!
-	    	switch(side){
-	    	case 5: return this.top;
-	    	case 3: return this.top;
-	    	case 1: return this.output;
-	    	default: return this.input;
-	    	}
-	    }else if(facing == 3){ //north! WORKS!
-	    	switch(side){
-	    	case 0: return this.top;
-	    	case 1: return this.top;
-	    	case 3: return this.output;
-	    	default: return this.input;
-	    	}
-	    }else if(facing == 4){ //east! WORKS!
-	    	switch(side){
-	    	case 0: return this.top;
-	    	case 1: return this.top;
-	    	case 4: return this.output;
-	    	default: return this.input;
-	    	}
-	    }else if(facing == 5){ //west! WORKS!
-	    	switch(side){
-	    	case 0: return this.top;
-	    	case 1: return this.top;
-	    	case 5: return this.output;
-	    	default: return this.input;
-	    	}
-	    }else{ 
-	    	return this.input;
-	    }
+        TileEntity tile = iBlockAccess.getTileEntity(x, y, z);
+        if (tile instanceof TileEntityBlock) {
+            switch (new Short(((TileEntityBlock)tile).getFacing()).intValue()) {
+                case 0://Up
+                    switch (side) {
+                        case 5:
+                            return this.top;
+                        case 3:
+                            return this.top;
+                        case 0:
+                            return this.output;
+                        default:
+                            return this.input;
+                    }
+                case 1://Down
+                    switch (side) {
+                        case 5:
+                            return this.top;
+                        case 3:
+                            return this.top;
+                        case 1:
+                            return this.output;
+                        default:
+                            return this.input;
+                    }
+                case 2://South
+                    switch (side) {
+                        case 0:
+                            return this.top;
+                        case 1:
+                            return this.top;
+                        case 2:
+                            return this.output;
+                        default:
+                            return this.input;
+                    }
+                case 3://North
+                    switch (side) {
+                        case 0:
+                            return this.top;
+                        case 1:
+                            return this.top;
+                        case 3:
+                            return this.output;
+                        default:
+                            return this.input;
+                    }
+                case 4://East
+                    switch (side) {
+                        case 0:
+                            return this.top;
+                        case 1:
+                            return this.top;
+                        case 4:
+                            return this.output;
+                        default:
+                            return this.input;
+                    }
+                case 5://West
+                    switch (side) {
+                        case 0:
+                            return this.top;
+                        case 1:
+                            return this.top;
+                        case 5:
+                            return this.output;
+                        default:
+                            return this.input;
+                    }
+                default://Unknown
+                    return input;
+            }
+        }
+        return null;
 	}
-	
+
 	/**
 	 * Hand only (side- not west or east
 	 */
@@ -122,7 +142,7 @@ public class AFSUBlock extends Block{
     	default: return this.input;
     	}
 	}
-	
+
 	@Override
 	@SideOnly(Side.CLIENT)
 	public void registerBlockIcons(IIconRegister register){
@@ -130,15 +150,16 @@ public class AFSUBlock extends Block{
 		this.output = register.registerIcon("AFSU" + ":" + "AFSU_output_" + ConfigHandler.afsutexture);
 		this.input = register.registerIcon("AFSU" + ":" + "AFSU_input_" + ConfigHandler.afsutexture);
 	}
-	
-	@Override
-	public int isProvidingWeakPower(IBlockAccess blockAccess, int x, int y, int z, int side){
-	    TileEntityBlock te = (TileEntityBlock)getOwnTe(blockAccess, x, y, z);
-	    if (!(te instanceof TileEntityElectricBlock)) return 0;
 
-	    return ((TileEntityElectricBlock)te).isEmittingRedstone() ? 15 : 0;
+	@Override
+	public int isProvidingWeakPower(IBlockAccess blockAccess, int x, int y, int z, int side) {
+        TileEntity tile = blockAccess.getTileEntity(x, y, z);
+        if (tile instanceof TileEntityElectricBlock) {
+            return ((TileEntityElectricBlock)tile).isEmittingRedstone() ? 15 : 0;
+        }
+        return super.isProvidingWeakPower(blockAccess, x, y, z, side);
 	}
-	
+
 	@Override
 	public boolean canProvidePower(){
 	    return true;
@@ -154,64 +175,40 @@ public class AFSUBlock extends Block{
 	    return true;
 	}
 
-	public Class<? extends TileEntity> getTeClass(int meta, MutableObject<Class<?>[]> ctorArgTypes, MutableObject<Object[]> ctorArgs){
-		return TileEntityAFSU.class;
-	}
-	
-	@Override
-	public void onBlockPlacedBy(World world, int x, int y, int z, EntityLivingBase entityliving, ItemStack itemStack){
-	    if (!IC2.platform.isSimulating()) return;
+    @Override
+    public void onBlockPlacedBy(World world, int x, int y, int z, EntityLivingBase entityliving, ItemStack itemStack){
+        TileEntity tile = world.getTileEntity(x, y, z);
+        if (tile instanceof TileEntityElectricBlock) {
+            TileEntityElectricBlock electricBlock = (TileEntityElectricBlock)tile;
+            NBTTagCompound nbt = StackUtil.getOrCreateNbtData(itemStack);
+            electricBlock.energy = nbt.getDouble("energy");
+            if (entityliving == null) {
+                electricBlock.setFacing(convertIntegerToShort(1));
+            } else {
+                electricBlock.setFacing(convertIntegerToShort(BlockPistonBase.determineOrientation(world, x, y, z, entityliving)));
+            }
+        }
+    }
 
-	    TileEntityBlock te = (TileEntityBlock)getOwnTe(world, x, y, z);
-	    if (te == null) return;
+    private static short convertIntegerToShort(int integer_n) {
+        return new Integer(integer_n).shortValue();
+    }
 
-	    if ((te instanceof TileEntityElectricBlock)) {
-	      NBTTagCompound nbttagcompound = StackUtil.getOrCreateNbtData(itemStack);
-	      ((TileEntityElectricBlock)te).energy = nbttagcompound.getDouble("energy");
-	    }
-
-	    if (entityliving == null) {
-	      te.setFacing((short)1);
-	    }else{
-	      int yaw = MathHelper.floor_double(entityliving.rotationYaw * 4.0F / 360.0F + 0.5D) & 0x3;
-	      int pitch = Math.round(entityliving.rotationPitch);
-
-	      if (pitch >= 65)
-	        te.setFacing((short)1);
-	      else if (pitch <= -65)
-	        te.setFacing((short)0);
-	      else
-	        switch (yaw) {
-	        case 0:
-	          te.setFacing((short)2);
-	          break;
-	        case 1:
-	          te.setFacing((short)5);
-	          break;
-	        case 2:
-	          te.setFacing((short)3);
-	          break;
-	        case 3:
-	          te.setFacing((short)4);
-	        }
-	    }
-	}
-	
 	@Override
 	public boolean hasComparatorInputOverride(){
 	    return true;
 	}
-	
+
 	@Override
 	public int getComparatorInputOverride(World world, int x, int y, int z, int side){
-	    TileEntityBlock te = (TileEntityBlock)getOwnTe(world, x, y, z);
-	    if (!(te instanceof TileEntityBlock)) return 0;
+        TileEntity tile = world.getTileEntity(x, y, z);
+        if (tile instanceof TileEntityElectricBlock) {
+            TileEntityElectricBlock teb = (TileEntityElectricBlock) tile;
+            return new Long(Math.round(Util.map(teb.energy, teb.maxStorage, 15.0D))).intValue();
+        }
+        return super.getComparatorInputOverride(world, x, y, z, side);
+    }
 
-	    TileEntityElectricBlock teb = (TileEntityElectricBlock)te;
-
-	    return (int)Math.round(Util.map(teb.energy, teb.maxStorage, 15.0D));
-	}
-	
 	@Override
 	public final boolean hasTileEntity(int metadata){
 	    return true;
@@ -221,96 +218,86 @@ public class AFSUBlock extends Block{
 	public boolean canCreatureSpawn(EnumCreatureType type, IBlockAccess world, int x, int y, int z){
 	    return false;
 	}
-	
-	public TileEntity getOwnTe(IBlockAccess blockAccess, int x, int y, int z){
-		TileEntity te;
-	    Block block;
-	    int meta;
-	    if ((blockAccess instanceof World)) {
-	    	World world = (World)blockAccess;
-	    	Chunk chunk;
-	    	if ((world.getChunkProvider() instanceof ChunkProviderServer)) {
-	    		ChunkProviderServer cps = (ChunkProviderServer)world.getChunkProvider();
-	    		chunk = (Chunk)cps.loadedChunkHashMap.getValueByKey(ChunkCoordIntPair.chunkXZ2Int(x >> 4, z >> 4));
-	    	}else{
-	    		chunk = world.getChunkFromBlockCoords(x, z);
-	    	}
 
-	    	if ((chunk == null) || ((chunk instanceof EmptyChunk))) return null;
-
-	    		block = chunk.getBlock(x & 0xF, y, z & 0xF);
-	    		meta = chunk.getBlockMetadata(x & 0xF, y, z & 0xF);
-	    		te = chunk.func_150806_e(x & 0xF, y, z & 0xF);
-	      	}else{
-	      		block = blockAccess.getBlock(x, y, z);
-	      		meta = blockAccess.getBlockMetadata(x, y, z);
-	      		te = blockAccess.getTileEntity(x, y, z);
-	    }
-
-	    Class expectedClass = getTeClass(meta, null, null);
-	    Class actualClass = te != null ? te.getClass() : null;
-
-	    if (actualClass != expectedClass) {
-	    	if (block != this) {
-	    		if (Util.inDev()) {
-	    			StackTraceElement[] st = new Throwable().getStackTrace();
-	    			IC2.log.warn("Own tile entity query from {} to foreign block {} instead of {} at dim {}, {}/{}/{}.", new Object[] { st.length > 1 ? st[1] : "?", block != null ? block.getClass() : null, getClass(), (blockAccess instanceof World) ? Integer.valueOf(((World)blockAccess).provider.dimensionId) : "?", Integer.valueOf(x), Integer.valueOf(y), Integer.valueOf(z) });
-	    		}
-	    		return null;
-	    	}
-	    	IC2.log.warn("Mismatched tile entity at dim {}, {}/{}/{}, got {}, expected {}.", new Object[] { (blockAccess instanceof World) ? Integer.valueOf(((World)blockAccess).provider.dimensionId) : "?", Integer.valueOf(x), Integer.valueOf(y), Integer.valueOf(z), actualClass, expectedClass });
-
-	    	if ((blockAccess instanceof World)) {
-	    		World world = (World)blockAccess;
-
-	    		te = createTileEntity(world, meta);
-	    		world.setTileEntity(x, y, z, te);
-	    	}else{
-	        return null;
-	    	}
-	    }
-	    return te;
-	}
-	
-	public int getFacing(IBlockAccess iBlockAccess, int x, int y, int z){
-		TileEntity te = getOwnTe(iBlockAccess, x, y, z);
-
-	    if ((te instanceof TileEntityBlock)) {
-	    	return ((TileEntityBlock)te).getFacing();
-	    }
-	    int meta = iBlockAccess.getBlockMetadata(x, y, z);
-	    return 3;
-	}
-	
 	@Override
 	public boolean rotateBlock(World worldObj, int x, int y, int z, ForgeDirection axis){
 	    if (axis == ForgeDirection.UNKNOWN) return false;
-	    TileEntity tileEntity = getOwnTe(worldObj, x, y, z);
+	    TileEntity tileEntity = worldObj.getTileEntity(x, y, z);
 
 	    if ((tileEntity instanceof IWrenchable)) {
 	    	IWrenchable te = (IWrenchable)tileEntity;
 
-	    	int newFacing = ForgeDirection.getOrientation(te.getFacing()).getRotation(axis).ordinal();
+	    	short newFacing = convertIntegerToShort(ForgeDirection.getOrientation(te.getFacing()).getRotation(axis).ordinal());
 
 	    	if (te.wrenchCanSetFacing(null, newFacing)) {
-	    		te.setFacing((short)newFacing);
+	    		te.setFacing(newFacing);
 	    	}
+            return true;
 	    }
 	    return false;
 	}
-	
+
 	@Override
 	public final TileEntity createTileEntity(World world, int metadata) {
 	    return new TileEntityAFSU();
 	}
-	
+
 	@Override
 	public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int var6, float var7, float var8, float var9){
-		if (!player.isSneaking() && player.getCurrentEquippedItem() != IC2Items.getItem("wrench")){
-        	player.openGui(AFSUMod.instance, 0, world, x, y, z);
-            player.openGui("AFSU", 0, world, x, y, z);
+        if (player.getCurrentEquippedItem() == IC2Items.getItem("wrench") || player.getCurrentEquippedItem() == IC2Items.getItem("electricWrench")) {
             return true;
-        }else return false;
+        }
+		if (!player.isSneaking()) {
+            player.openGui(AFSUMod.instance, 0, world, x, y, z);
+            return true;
+        }
+        return false;
+    }
+
+    @Override
+    public void getSubBlocks(Item item, CreativeTabs tab, List stackList) {
+        ItemStack zeroStack = new ItemStack(this, 1, 0);
+        StackUtil.getOrCreateNbtData(zeroStack).setInteger("energy", 0);
+        stackList.add(zeroStack);
+        ItemStack fullStack = new ItemStack(this, 1, 1);
+        StackUtil.getOrCreateNbtData(fullStack).setInteger("energy", TileEntityAFSU.MAX_STORAGE);
+        stackList.add(fullStack);
+    }
+
+    @Override
+    public void breakBlock(World world, int xCoord, int yCoord, int zCoord, Block block, int par6) {
+        if (world.isRemote) {
+            return;
+        }
+        TileEntity tile = world.getTileEntity(xCoord, yCoord, zCoord);
+        if (tile instanceof IInventory) {
+            IInventory inventory = (IInventory)tile;
+            for (int j1 = 0; j1 < inventory.getSizeInventory(); ++j1) {
+                ItemStack itemstack = inventory.getStackInSlot(j1);
+                if (itemstack != null) {
+                    float f = world.rand.nextFloat() * 0.8F + 0.1F;
+                    float f1 = world.rand.nextFloat() * 0.8F + 0.1F;
+                    float f2 = world.rand.nextFloat() * 0.8F + 0.1F;
+                    while (itemstack.stackSize > 0) {
+                        int k1 = world.rand.nextInt(21) + 10;
+                        if (k1 > itemstack.stackSize) {
+                            k1 = itemstack.stackSize;
+                        }
+                        itemstack.stackSize -= k1;
+                        EntityItem entityitem = new EntityItem(world, xCoord + f, yCoord + f1, zCoord + f2, new ItemStack(itemstack.getItem(), k1, itemstack.getItemDamage()));
+                        if (itemstack.hasTagCompound()) {
+                            entityitem.getEntityItem().setTagCompound((NBTTagCompound) itemstack.getTagCompound().copy());
+                        }
+                        entityitem.motionX = world.rand.nextGaussian() * 0.05F;
+                        entityitem.motionY = world.rand.nextGaussian() * 0.05F + 0.2F;
+                        entityitem.motionZ = world.rand.nextGaussian() * 0.05F;
+                        world.spawnEntityInWorld(entityitem);
+                    }
+                }
+            }
+            world.func_147453_f(xCoord, yCoord, zCoord, block);
+        }
+        super.breakBlock(world, xCoord, yCoord, zCoord, block, par6);
     }
 
 }
