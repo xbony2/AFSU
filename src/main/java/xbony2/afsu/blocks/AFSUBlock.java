@@ -2,6 +2,8 @@ package xbony2.afsu.blocks;
 
 import net.minecraft.block.BlockPistonBase;
 import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.entity.item.EntityItem;
+import net.minecraft.inventory.IInventory;
 import net.minecraft.item.Item;
 import net.minecraft.util.ChatComponentTranslation;
 import xbony2.afsu.AFSUMod;
@@ -242,7 +244,7 @@ public class AFSUBlock extends Block{
 
 	@Override
 	public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int var6, float var7, float var8, float var9){
-        if (player.getCurrentEquippedItem() == IC2Items.getItem("wrench")) {
+        if (player.getCurrentEquippedItem() == IC2Items.getItem("wrench") || player.getCurrentEquippedItem() == IC2Items.getItem("electricWrench")) {
             return true;
         }
 		if (!player.isSneaking()) {
@@ -260,6 +262,42 @@ public class AFSUBlock extends Block{
         ItemStack fullStack = new ItemStack(this, 1, 1);
         StackUtil.getOrCreateNbtData(fullStack).setInteger("energy", TileEntityAFSU.MAX_STORAGE);
         stackList.add(fullStack);
+    }
+
+    @Override
+    public void breakBlock(World world, int xCoord, int yCoord, int zCoord, Block block, int par6) {
+        if (!world.isRemote) {
+            return;
+        }
+        TileEntity tile = world.getTileEntity(xCoord, yCoord, zCoord);
+        if (tile instanceof IInventory) {
+            IInventory inventory = (IInventory)tile;
+            for (int j1 = 0; j1 < inventory.getSizeInventory(); ++j1) {
+                ItemStack itemstack = inventory.getStackInSlot(j1);
+                if (itemstack != null) {
+                    float f = world.rand.nextFloat() * 0.8F + 0.1F;
+                    float f1 = world.rand.nextFloat() * 0.8F + 0.1F;
+                    float f2 = world.rand.nextFloat() * 0.8F + 0.1F;
+                    while (itemstack.stackSize > 0) {
+                        int k1 = world.rand.nextInt(21) + 10;
+                        if (k1 > itemstack.stackSize) {
+                            k1 = itemstack.stackSize;
+                        }
+                        itemstack.stackSize -= k1;
+                        EntityItem entityitem = new EntityItem(world, xCoord + f, yCoord + f1, zCoord + f2, new ItemStack(itemstack.getItem(), k1, itemstack.getItemDamage()));
+                        if (itemstack.hasTagCompound()) {
+                            entityitem.getEntityItem().setTagCompound((NBTTagCompound) itemstack.getTagCompound().copy());
+                        }
+                        entityitem.motionX = world.rand.nextGaussian() * 0.05F;
+                        entityitem.motionY = world.rand.nextGaussian() * 0.05F + 0.2F;
+                        entityitem.motionZ = world.rand.nextGaussian() * 0.05F;
+                        world.spawnEntityInWorld(entityitem);
+                    }
+                }
+            }
+            world.func_147453_f(xCoord, yCoord, zCoord, block);
+        }
+        super.breakBlock(world, xCoord, yCoord, zCoord, block, par6);
     }
 
 }

@@ -7,12 +7,12 @@ import net.minecraftforge.common.config.Configuration;
 public class ConfigHandler {
 	public static String afsutexture;
 	public static String afbtexture;
-	
+
 	private static final String[] usableValuesAFSU = new String[] {"default", "blue", "yellow", "black", "old"};
 	private static final String[] usableValuesAFB = new String[] {"default"};
-	
+
 	private static final String WARNING = "DO NOT CHANGE THIS IF YOU DONT KNOW WHAT YOU ARE DOING";
-	
+
 	public static int AFSUxSize;
 	public static int AFSUySize;
 	public static int AFSUGuiButtonid1;
@@ -47,10 +47,10 @@ public class ConfigHandler {
 	public static int AFSUCyDispPosition;
 	public static int AFSUDxDispPosition;
 	public static int AFSUDyDispPosition;
-	
+
 	public static void init(File file){
 		Configuration config = new Configuration(file);
-		
+
 		config.load();
 			afsutexture = config.getString("AFSU Texture", "Textures", "default", "Changes the texture of the AFSU. Possible values: default, blue, yellow, black, old", usableValuesAFSU);
 			afbtexture = config.getString("AFB Texture", "Textures", "default", "Changes the texture of the AFB. Possible values: default", usableValuesAFB);
@@ -85,7 +85,7 @@ public class ConfigHandler {
 			AFSUArmxDispPosition = config.getInt("ArmXDispPosition", "ContainerGUI", 152, 0, Integer.MAX_VALUE, WARNING);
 			AFSUArmyDispPosition = config.getInt("ArmYDispPosition", "ContainerGUI", 5, 0, Integer.MAX_VALUE, WARNING);
 			AFSUCxDispPosition = config.getInt("CXDispPosition", "ContainerGUI", 128, 0, Integer.MAX_VALUE, WARNING);
-			AFSUCyDispPosition = config.getInt("CYDispPosition", "ContainerGUI", 13, 0, Integer.MAX_VALUE, WARNING);
+			AFSUCyDispPosition = config.getInt("CYDispPosition", "ContainerGUI", 14, 0, Integer.MAX_VALUE, WARNING);
 			AFSUDxDispPosition = config.getInt("DXDispPosition", "ContainerGUI", 128, 0, Integer.MAX_VALUE, WARNING);
 			AFSUDyDispPosition = config.getInt("DYDispPosition", "ContainerGUI", 50, 0, Integer.MAX_VALUE, WARNING);
 		config.save();
