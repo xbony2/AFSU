@@ -58,7 +58,7 @@ public class AFSUBlock extends Block{
             switch (new Short(((TileEntityBlock)tile).getFacing()).intValue()) {
                 case 0://Up
                     switch (side) {
-                        case 5:
+                        case 2:
                             return this.top;
                         case 3:
                             return this.top;
@@ -69,7 +69,7 @@ public class AFSUBlock extends Block{
                     }
                 case 1://Down
                     switch (side) {
-                        case 5:
+                        case 2:
                             return this.top;
                         case 3:
                             return this.top;
