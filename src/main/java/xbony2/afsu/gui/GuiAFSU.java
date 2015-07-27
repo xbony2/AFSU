@@ -1,22 +1,20 @@
 package xbony2.afsu.gui;
 
+import ic2.core.util.GuiTooltipHelper;
+
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import ic2.core.GuiIconButton;
 import ic2.core.IC2;
-import ic2.core.util.GuiTooltiphelper;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.StatCollector;
-
 import org.lwjgl.opengl.GL11;
-
 import xbony2.afsu.ConfigHandler;
 import xbony2.afsu.container.ContainerAFSU;
-import xbony2.afsu.tileentity.TileEntityAFSU;
 
 @SideOnly(Side.CLIENT)
 public class GuiAFSU extends GuiContainer {
@@ -61,9 +59,8 @@ public class GuiAFSU extends GuiContainer {
         String output = StatCollector.translateToLocalFormatted("ic2.EUStorage.gui.info.output", container.base.output);
 	    this.fontRendererObj.drawString(output, ConfigHandler.AFSUxEnergy3, ConfigHandler.AFSUyEnergy3, ConfigHandler.AFSUTextColor);
 
-	    GuiTooltiphelper.drawAreaTooltip(par1 - this.guiLeft, par2 - this.guiTop, (container.base).getredstoneMode(),
-	    		ConfigHandler.AFSUToolTipminx, ConfigHandler.AFSUToolTipminy, ConfigHandler.AFSUToolTipmaxx, ConfigHandler.AFSUToolTipmaxy);
-
+	    GuiTooltipHelper.drawAreaTooltip(par1 - this.guiLeft, par2 - this.guiTop, (container.base).getredstoneMode(), ConfigHandler.AFSUToolTipminx, 
+	    		ConfigHandler.AFSUToolTipminy, ConfigHandler.AFSUToolTipmaxx, ConfigHandler.AFSUToolTipmaxy);
 	  }
 
 	@Override
