@@ -14,9 +14,9 @@ public class GuiHandler implements IGuiHandler{
 	@Override
 	public Object getServerGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z) {
 		TileEntity entity = world.getTileEntity(x, y, z);
-		if(entity instanceof TileEntityAFSU) {
+		if (entity instanceof TileEntityAFSU)
 			return new ContainerAFSU(player, (TileEntityAFSU)entity);
-		}
+
 		return null;
 	}
 
@@ -24,9 +24,9 @@ public class GuiHandler implements IGuiHandler{
     @SideOnly(Side.CLIENT)
 	public Object getClientGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z) {
 		TileEntity entity = world.getTileEntity(x, y, z);
-		if(entity instanceof TileEntityAFSU) {
+		if (entity instanceof TileEntityAFSU)
 			return new GuiAFSU(new ContainerAFSU(player, (TileEntityAFSU)entity));
-		}
+
 		return null;
 	}
 

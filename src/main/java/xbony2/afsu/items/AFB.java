@@ -40,32 +40,32 @@ public class AFB extends Item implements IElectricItem{
 	}
 
 	@Override
-	public boolean canProvideEnergy(ItemStack itemStack) {
+	public boolean canProvideEnergy(ItemStack itemStack){
 		return true;
 	}
 
 	@Override
-	public Item getChargedItem(ItemStack itemStack) {
+	public Item getChargedItem(ItemStack itemStack){
 		return this;
 	}
 
 	@Override
-	public Item getEmptyItem(ItemStack itemStack) {
+	public Item getEmptyItem(ItemStack itemStack){
 		return this;
 	}
 
 	@Override
-	public double getMaxCharge(ItemStack itemStack) {
+	public double getMaxCharge(ItemStack itemStack){
 		return 100000000.0D; //One hundred million
 	}
 
 	@Override
-	public int getTier(ItemStack itemStack) {
+	public int getTier(ItemStack itemStack){
 		return 5;
 	}
 
 	@Override
-	public double getTransferLimit(ItemStack itemStack) {
+	public double getTransferLimit(ItemStack itemStack){
 		return 131072.0D;
 	}
 }

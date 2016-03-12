@@ -42,13 +42,13 @@ public class AFSUMod {
 	@EventHandler
 	public void init(FMLInitializationEvent event){
         NetworkRegistry.INSTANCE.registerGuiHandler(AFSUMod.instance, new GuiHandler());
-		Recipes.advRecipes.addRecipe(new ItemStack(ALC, 1, 0),
+		Recipes.advRecipes.addRecipe(new ItemStack(ALC),
 			"GIG", "IUI", "GIG",
 				'G', IC2Items.getItem("glassFiberCableItem"),
 				'I', IC2Items.getItem("iridiumPlate"),
 				'U', IC2Items.getItem("uuMatterCell"));
 		
-		Recipes.advRecipes.addRecipe(new ItemStack(AFSU, 1, 0),
+		Recipes.advRecipes.addRecipe(new ItemStack(AFSU),
 			"MGM", "IAI", "MGM",
 				'I', IC2Items.getItem("iridiumPlate"),
 				'G', IC2Items.getItem("glassFiberCableItem"),

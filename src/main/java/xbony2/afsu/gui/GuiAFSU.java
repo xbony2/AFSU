@@ -25,7 +25,7 @@ public class GuiAFSU extends GuiContainer {
 	private final String name;
 	private static final ResourceLocation BACKGROUND = new ResourceLocation("afsu:textures/gui/gui_afsu.png");
 
-	public GuiAFSU(ContainerAFSU container) {
+	public GuiAFSU(ContainerAFSU container){
 		super(container);
 		
 		this.xSize = ConfigHandler.AFSUxSize;
@@ -49,7 +49,6 @@ public class GuiAFSU extends GuiContainer {
 	@Override
 	protected void drawGuiContainerForegroundLayer(int par1, int par2){
 		this.fontRendererObj.drawString(this.name, (this.xSize - this.fontRendererObj.getStringWidth(this.name)) / 2, ConfigHandler.AFSUyName, ConfigHandler.AFSUTextColor);
-	    //this.fontRendererObj.drawString(this.armorInv, 8, this.ySize - 126 + 3, ConfigHandler.AFSUTextColor);
 
 	    this.fontRendererObj.drawString(this.level, ConfigHandler.AFSUxLevel, ConfigHandler.AFSUyLevel, ConfigHandler.AFSUTextColor);
 	    int energy = new Double(Math.min((this.container.base).energy, (container.base).maxStorage)).intValue();

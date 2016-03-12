@@ -11,18 +11,13 @@ import ic2.core.slot.SlotInvSlot;
 
 public class ContainerAFSU extends ContainerFullInv<TileEntityAFSU> {
 
-	public ContainerAFSU(EntityPlayer player, TileEntityAFSU tileentity) {
+	public ContainerAFSU(EntityPlayer player, TileEntityAFSU tileentity){
 		super(player, tileentity, ConfigHandler.AFSUxSize + 3, ConfigHandler.AFSUySize);
-		for (int i = 0; i < 4; i++){
-			//this.addSlotToContainer(new SlotArmor(entityPlayer.inventory, i, 8 + i * 18, 84)); //<-default
-			addSlotToContainer(new SlotArmor(player.inventory, i, ConfigHandler.AFSUArmxDispPosition,
-					ConfigHandler.AFSUArmyDispPosition + i * 18));
-		}
+		for (int i = 0; i < 4; i++)
+			addSlotToContainer(new SlotArmor(player.inventory, i, ConfigHandler.AFSUArmxDispPosition, ConfigHandler.AFSUArmyDispPosition + i * 18));
 
-        addSlotToContainer(new SlotInvSlot(tileentity.chargeSlot, 0, ConfigHandler.AFSUCxDispPosition,
-				ConfigHandler.AFSUCyDispPosition));
-        addSlotToContainer(new SlotInvSlot(tileentity.dischargeSlot, 0, ConfigHandler.AFSUDxDispPosition,
-	    		ConfigHandler.AFSUDyDispPosition));
+        addSlotToContainer(new SlotInvSlot(tileentity.chargeSlot, 0, ConfigHandler.AFSUCxDispPosition, ConfigHandler.AFSUCyDispPosition));
+        addSlotToContainer(new SlotInvSlot(tileentity.dischargeSlot, 0, ConfigHandler.AFSUDxDispPosition, ConfigHandler.AFSUDyDispPosition));
 	}
 
 	@Override
@@ -32,5 +27,4 @@ public class ContainerAFSU extends ContainerFullInv<TileEntityAFSU> {
 	    list.add("redstoneMode");
 	    return list;
 	}
-
 }

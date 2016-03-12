@@ -25,11 +25,11 @@ public class ItemBlockAFSU extends ItemBlock {
         final String capacity = StatCollector.translateToLocal("ic2.item.tooltip.Capacity") + " " + "1b EU";
         final String stored = StatCollector.translateToLocal("ic2.item.tooltip.Store") + " ";
         tooltipList.add(output + " " + capacity);
-        if (stack.hasTagCompound()) {
+        
+        if (stack.hasTagCompound())
             tooltipList.add(stored + stack.getTagCompound().getInteger("energy") + " EU");
-        } else {
+        else
             tooltipList.add(stored + 0 + " EU");
-        }
     }
 
 }
