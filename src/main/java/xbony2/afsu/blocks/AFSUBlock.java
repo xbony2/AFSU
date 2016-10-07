@@ -5,7 +5,6 @@ import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.Item;
-import net.minecraft.util.ChatComponentTranslation;
 import xbony2.afsu.AFSUMod;
 import xbony2.afsu.ConfigHandler;
 import xbony2.afsu.tileentity.TileEntityAFSU;
@@ -18,19 +17,17 @@ import ic2.core.util.StackUtil;
 import ic2.core.util.Util;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
-import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.EnumCreatureType;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.IIcon;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
-import net.minecraftforge.common.util.ForgeDirection;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 import java.util.List;
 
@@ -40,7 +37,7 @@ public class AFSUBlock extends Block {
 	private IIcon top, output, input;
 
 	public AFSUBlock(){
-		super(Material.iron);
+		super(Material.IRON);
 		this.setCreativeTab(IC2.tabIC2);
 		this.setHardness(1.5F);
 		this.setStepSound(soundTypeMetal);
@@ -223,7 +220,7 @@ public class AFSUBlock extends Block {
 	@Override
 	public boolean rotateBlock(World worldObj, int x, int y, int z, ForgeDirection axis){
 		if (axis == ForgeDirection.UNKNOWN) return false;
-		TileEntity tileEntity = worldObj.getTileEntity(x, y, z);
+		TileEntity tileEntity = worldObj.getTileEntity(new BlockPos(x, y, z));
 
 		if ((tileEntity instanceof IWrenchable)) {
 			IWrenchable te = (IWrenchable)tileEntity;

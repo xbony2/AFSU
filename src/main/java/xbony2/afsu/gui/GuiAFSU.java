@@ -1,9 +1,5 @@
 package xbony2.afsu.gui;
 
-import ic2.core.util.GuiTooltipHelper;
-
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import ic2.core.GuiIconButton;
 import ic2.core.IC2;
 import net.minecraft.client.gui.GuiButton;
@@ -11,7 +7,8 @@ import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.StatCollector;
+import net.minecraftforge.fml.relauncher.SideOnly;
+
 import org.lwjgl.opengl.GL11;
 import xbony2.afsu.ConfigHandler;
 import xbony2.afsu.container.ContainerAFSU;
@@ -79,6 +76,6 @@ public class GuiAFSU extends GuiContainer {
     @Override
 	protected void actionPerformed(GuiButton guibutton){
 		super.actionPerformed(guibutton);
-        if (guibutton.id == ConfigHandler.AFSUGuiButtonid1) IC2.network.get().initiateClientTileEntityEvent(container.base, 0);
+        if (guibutton.id == ConfigHandler.AFSUGuiButtonid1) IC2.network.get(true).initiateClientTileEntityEvent(container.base, 0);
     }
 }

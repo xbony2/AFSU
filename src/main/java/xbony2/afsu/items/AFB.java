@@ -1,14 +1,12 @@
 package xbony2.afsu.items;
 
-import xbony2.afsu.ConfigHandler;
 import ic2.api.item.IElectricItem;
 import ic2.core.IC2;
-import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.IIcon;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
+import xbony2.afsu.ConfigHandler;
 
 public class AFB extends Item implements IElectricItem{
 
