@@ -10,6 +10,7 @@ import ic2.api.recipe.Recipes;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.text.translation.I18n;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventHandler;
 import net.minecraftforge.fml.common.Mod.Instance;
@@ -54,5 +55,18 @@ public class AFSUMod {
 				'G', IC2Items.getItem("glassFiberCableItem"),
 				'M', IC2Items.getItem("mfsUnit"),
 				'A', AFSUMod.ALC);
+	}
+	
+	//Random utils that I'm too lazy to have as its own class
+	public static String translate(String key){
+		if(I18n.canTranslate(key))// TODO: used undepreciated methods
+			return I18n.translateToLocal(key);
+		else return I18n.translateToFallback(key);
+	}
+	
+	public static String translateFormatted(String key, Object... format){
+		if(I18n.canTranslate(key))// TODO: used undepreciated methods
+			return String.format(I18n.translateToLocal(key), format);
+		else return String.format(I18n.translateToFallback(key), format);
 	}
 }

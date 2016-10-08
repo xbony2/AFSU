@@ -4,14 +4,11 @@ import ic2.api.item.IElectricItem;
 import ic2.core.IC2;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
-import xbony2.afsu.ConfigHandler;
 
 public class AFB extends Item implements IElectricItem{
 
-	@SideOnly(Side.CLIENT)
-	private IIcon empty, partly, full;
+	/*@SideOnly(Side.CLIENT)
+	private IIcon empty, partly, full;*/
 
 	public AFB(){
 		super();
@@ -21,7 +18,7 @@ public class AFB extends Item implements IElectricItem{
 		this.setMaxDamage(100000000 + 1);
 	}
 	
-	@Override
+	/*@Override
 	@SideOnly(Side.CLIENT)
 	public void registerIcons(IIconRegister register){
 		this.empty = register.registerIcon("AFSU" + ":" + "alcempty_" + ConfigHandler.afbtexture);
@@ -35,14 +32,14 @@ public class AFB extends Item implements IElectricItem{
 		if(damage <= 100000) return empty;
 		if(damage <= 99000000) return partly;
 		else return full;
-	}
+	}*/
 
 	@Override
 	public boolean canProvideEnergy(ItemStack itemStack){
 		return true;
 	}
 
-	@Override
+	/*@Override Do we need this?
 	public Item getChargedItem(ItemStack itemStack){
 		return this;
 	}
@@ -50,7 +47,7 @@ public class AFB extends Item implements IElectricItem{
 	@Override
 	public Item getEmptyItem(ItemStack itemStack){
 		return this;
-	}
+	}*/
 
 	@Override
 	public double getMaxCharge(ItemStack itemStack){

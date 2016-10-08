@@ -11,9 +11,9 @@ public class TileEntityAFSU extends TileEntityElectricBlock{
 		super(5, TileEntityAFSU.MAX_OUTPUT, TileEntityAFSU.MAX_STORAGE);
 	}
 
-	@Override
-	public String getInventoryName(){
+	/*@Override Is this needed? Not sure.
+	public String getName(){
 		return "AFSU";
-	}
+	}*/
 	
 }
