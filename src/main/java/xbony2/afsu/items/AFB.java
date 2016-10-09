@@ -16,6 +16,7 @@ public class AFB extends Item implements IElectricItem{
 		this.setUnlocalizedName("ALC");
 		this.setMaxStackSize(1);
 		this.setMaxDamage(100000000 + 1);
+		this.setRegistryName("AFSU:ALC");
 	}
 	
 	/*@Override

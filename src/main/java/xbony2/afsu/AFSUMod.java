@@ -9,6 +9,7 @@ import ic2.api.item.IC2Items;
 import ic2.api.recipe.Recipes;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.text.translation.I18n;
 import net.minecraftforge.fml.common.Mod;
@@ -28,6 +29,7 @@ public class AFSUMod {
 	public static AFSUMod instance;
 
 	public static final Block AFSU = new AFSUBlock();
+	public static final ItemBlock IB_AFSU = new ItemBlock(AFSU);
 	public static final Item ALC = new AFB();
 
 	@EventHandler
@@ -36,8 +38,8 @@ public class AFSUMod {
 
         GameRegistry.registerTileEntity(TileEntityAFSU.class, "AFSU");
 
-		GameRegistry.registerBlock(AFSU, ItemBlockAFSU.class, "AFSU");
-		GameRegistry.registerItem(ALC, "ALC");
+		GameRegistry.register(AFSU);
+		GameRegistry.register(ALC);
 	}
 
 	@EventHandler
@@ -45,15 +47,15 @@ public class AFSUMod {
         NetworkRegistry.INSTANCE.registerGuiHandler(AFSUMod.instance, new GuiHandler());
 		Recipes.advRecipes.addRecipe(new ItemStack(ALC),
 			"GIG", "IUI", "GIG",
-				'G', IC2Items.getItem("glassFiberCableItem"),
-				'I', IC2Items.getItem("iridiumPlate"),
-				'U', IC2Items.getItem("uuMatterCell"));
+				'G', IC2Items.getItem("cable", "glass"),
+				'I', IC2Items.getItem("crafting", "iridium"),
+				'U', IC2Items.getItem("fluid_cell", "ic2uu_matter"));
 		
 		Recipes.advRecipes.addRecipe(new ItemStack(AFSU),
 			"MGM", "IAI", "MGM",
-				'I', IC2Items.getItem("iridiumPlate"),
-				'G', IC2Items.getItem("glassFiberCableItem"),
-				'M', IC2Items.getItem("mfsUnit"),
+				'I', IC2Items.getItem("crafting", "iridium"),
+				'G', IC2Items.getItem("cable", "glass"),
+				'M', IC2Items.getItem("te", "mfsu"),
 				'A', AFSUMod.ALC);
 	}
 	
