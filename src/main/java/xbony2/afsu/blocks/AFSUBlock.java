@@ -1,6 +1,7 @@
 package xbony2.afsu.blocks;
 
 import net.minecraft.block.BlockPistonBase;
+import net.minecraft.block.ITileEntityProvider;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.inventory.IInventory;
@@ -12,17 +13,21 @@ import ic2.api.item.IC2Items;
 import ic2.api.tile.IWrenchable;
 import ic2.core.IC2;
 import ic2.core.block.TileEntityBlock;
+import ic2.core.block.comp.Energy;
 import ic2.core.block.wiring.TileEntityElectricBlock;
 import ic2.core.util.StackUtil;
 import ic2.core.util.Util;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.EnumCreatureType;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.EnumFacing;
+import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
@@ -31,22 +36,23 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 import java.util.List;
 
-public class AFSUBlock extends Block {
+import javax.annotation.Nullable;
 
-	@SideOnly(Side.CLIENT)
-	private IIcon top, output, input;
+public class AFSUBlock extends Block implements ITileEntityProvider, IWrenchable {
+
+	/*@SideOnly(Side.CLIENT)
+	private IIcon top, output, input;*/
 
 	public AFSUBlock(){
 		super(Material.IRON);
 		this.setCreativeTab(IC2.tabIC2);
 		this.setHardness(1.5F);
-		this.setStepSound(soundTypeMetal);
-		this.setBlockName("AFSU");
+		this.setUnlocalizedName("AFSU");
 	}
 
-	/**
+	/* **
 	 * World only
-	 */
+	 *
 	@Override
 	@SideOnly(Side.CLIENT)
 	public IIcon getIcon(IBlockAccess iBlockAccess, int x, int y, int z, int side){
@@ -127,9 +133,9 @@ public class AFSUBlock extends Block {
 		return null;
 	}
 
-	/**
+	**
 	 * Hand only (side- not west or east
-	 */
+	 *
 	@Override
 	@SideOnly(Side.CLIENT)
 	public IIcon getIcon(int side, int metadata){
@@ -147,44 +153,45 @@ public class AFSUBlock extends Block {
 		this.top = register.registerIcon("AFSU" + ":" + "AFSU_top_" + ConfigHandler.afsutexture);
 		this.output = register.registerIcon("AFSU" + ":" + "AFSU_output_" + ConfigHandler.afsutexture);
 		this.input = register.registerIcon("AFSU" + ":" + "AFSU_input_" + ConfigHandler.afsutexture);
-	}
+	}*/
 
-	@Override
+	/*@Override
 	public int isProvidingWeakPower(IBlockAccess blockAccess, int x, int y, int z, int side) {
 		TileEntity tile = blockAccess.getTileEntity(x, y, z);
 		if (tile instanceof TileEntityElectricBlock)
 			return ((TileEntityElectricBlock)tile).isEmittingRedstone() ? 15 : 0;
 		
 		return super.isProvidingWeakPower(blockAccess, x, y, z, side);
-	}
+	}*/
 
 	@Override
-	public boolean canProvidePower(){
+	public boolean canProvidePower(IBlockState state){
 		return true;
 	}
 
 	@Override
-	public boolean isNormalCube(IBlockAccess world, int i, int j, int k){
+	public boolean isNormalCube(IBlockState state, IBlockAccess world, BlockPos pos){
 		return false;
 	}
 
 	@Override
-	public boolean isBlockSolid(IBlockAccess world, int x, int y, int z, int side){
+	public boolean isBlockSolid(IBlockAccess worldIn, BlockPos pos, EnumFacing side){
 		return true;
 	}
 
 	@Override
-	public void onBlockPlacedBy(World world, int x, int y, int z, EntityLivingBase entityliving, ItemStack itemStack){
-		TileEntity tile = world.getTileEntity(x, y, z);
+	public void onBlockPlacedBy(World world, BlockPos pos, IBlockState state, EntityLivingBase placer, ItemStack itemstack){
+		/*TileEntity tile = world.getTileEntity(pos);
 		if (tile instanceof TileEntityElectricBlock) {
 			TileEntityElectricBlock electricBlock = (TileEntityElectricBlock)tile;
-			NBTTagCompound nbt = StackUtil.getOrCreateNbtData(itemStack);
-			electricBlock.energy = nbt.getDouble("energy");
-			if (entityliving == null)
-				electricBlock.setFacing(convertIntegerToShort(1));
+			NBTTagCompound nbt = StackUtil.getOrCreateNbtData(itemstack);
+			electricBlock.energy = new Energy(electricBlock, nbt.getDouble("energy"));
+			if (placer == null)
+				electricBlock.setFacing(EnumFacing.UP);
 			else
-				electricBlock.setFacing(convertIntegerToShort(BlockPistonBase.determineOrientation(world, x, y, z, entityliving)));
-		}
+				//electricBlock.setFacing(convertIntegerToShort(BlockPistonBase.determineOrientation(world, x, y, z, entityliving)));
+				electricBlock.setFacing(EnumFacing.UP);
+		}*/
 	}
 
 	private static short convertIntegerToShort(int integer_n) {
@@ -192,32 +199,27 @@ public class AFSUBlock extends Block {
 	}
 
 	@Override
-	public boolean hasComparatorInputOverride(){
+	public boolean hasComparatorInputOverride(IBlockState state){
 		return true;
 	}
 
 	@Override
-	public int getComparatorInputOverride(World world, int x, int y, int z, int side){
-		TileEntity tile = world.getTileEntity(x, y, z);
+	public int getComparatorInputOverride(IBlockState blockState, World world, BlockPos pos){
+		TileEntity tile = world.getTileEntity(pos);
 		if (tile instanceof TileEntityElectricBlock) {
 			TileEntityElectricBlock teb = (TileEntityElectricBlock) tile;
-			return new Long(Math.round(Util.map(teb.energy, teb.maxStorage, 15.0D))).intValue();
+			return new Long(Math.round(Util.map(teb.energy.getEnergy(), TileEntityAFSU.MAX_STORAGE, 15.0D))).intValue();
 		}
 		
-		return super.getComparatorInputOverride(world, x, y, z, side);
+		return super.getComparatorInputOverride(blockState, world, pos);
 	}
 
 	@Override
-	public final boolean hasTileEntity(int metadata){
-		return true;
-	}
-
-	@Override
-	public boolean canCreatureSpawn(EnumCreatureType type, IBlockAccess world, int x, int y, int z){
+	public boolean canCreatureSpawn(IBlockState state, IBlockAccess world, BlockPos pos, net.minecraft.entity.EntityLiving.SpawnPlacementType type){
 		return false;
 	}
 
-	@Override
+	/*@Override
 	public boolean rotateBlock(World worldObj, int x, int y, int z, ForgeDirection axis){
 		if (axis == ForgeDirection.UNKNOWN) return false;
 		TileEntity tileEntity = worldObj.getTileEntity(new BlockPos(x, y, z));
@@ -233,20 +235,15 @@ public class AFSUBlock extends Block {
 			return true;
 		}
 		return false;
-	}
+	}*/
 
 	@Override
-	public final TileEntity createTileEntity(World world, int metadata) {
-		return new TileEntityAFSU();
-	}
-
-	@Override
-	public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int var6, float var7, float var8, float var9){
-		if (player.getCurrentEquippedItem() == IC2Items.getItem("wrench") || player.getCurrentEquippedItem() == IC2Items.getItem("electricWrench"))
+	public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, @Nullable ItemStack heldItem, EnumFacing side, float hitX, float hitY, float hitZ){
+		if (player.inventory.getCurrentItem() == IC2Items.getItem("wrench") || player.inventory.getCurrentItem() == IC2Items.getItem("electricWrench"))
 			return true;
 		
 		if (!player.isSneaking()) {
-			player.openGui(AFSUMod.instance, 0, world, x, y, z);
+			player.openGui(AFSUMod.instance, 0, world, pos.getX(), pos.getY(), pos.getZ());
 			return true;
 		}
 		
@@ -264,10 +261,10 @@ public class AFSUBlock extends Block {
 	}
 
 	@Override
-	public void breakBlock(World world, int xCoord, int yCoord, int zCoord, Block block, int par6) {
+	public void breakBlock(World world, BlockPos pos, IBlockState state) {
 		if (world.isRemote) return;
 
-		TileEntity tile = world.getTileEntity(xCoord, yCoord, zCoord);
+		TileEntity tile = world.getTileEntity(pos);
 		if (tile instanceof IInventory){
 			IInventory inventory = (IInventory)tile;
 			for (int j1 = 0; j1 < inventory.getSizeInventory(); ++j1) {
@@ -281,7 +278,7 @@ public class AFSUBlock extends Block {
 						if (k1 > itemstack.stackSize)
 							k1 = itemstack.stackSize;
 						itemstack.stackSize -= k1;
-						EntityItem entityitem = new EntityItem(world, xCoord + f, yCoord + f1, zCoord + f2, new ItemStack(itemstack.getItem(), k1, itemstack.getItemDamage()));
+						EntityItem entityitem = new EntityItem(world, pos.getX() + f, pos.getY() + f1, pos.getZ() + f2, new ItemStack(itemstack.getItem(), k1, itemstack.getItemDamage()));
 						if (itemstack.hasTagCompound()) {
 							entityitem.getEntityItem().setTagCompound((NBTTagCompound) itemstack.getTagCompound().copy());
 						}
@@ -292,8 +289,42 @@ public class AFSUBlock extends Block {
 					}
 				}
 			}
-			world.func_147453_f(xCoord, yCoord, zCoord, block);
+			//world.func_147453_f(xCoord, yCoord, zCoord, block);
 		}
-		super.breakBlock(world, xCoord, yCoord, zCoord, block, par6);
+		super.breakBlock(world, pos, state);
+	}
+	
+	@Override
+    public boolean hasTileEntity(IBlockState state) {
+        return true;
+    }
+
+    @Override
+    public TileEntity createNewTileEntity(World worldIn, int meta) {
+        return new TileEntityAFSU();
+    }
+
+	@Override
+	public EnumFacing getFacing(World world, BlockPos pos){
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public boolean setFacing(World world, BlockPos pos, EnumFacing newDirection, EntityPlayer player){
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean wrenchCanRemove(World world, BlockPos pos, EntityPlayer player){
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public List<ItemStack> getWrenchDrops(World world, BlockPos pos, IBlockState state, TileEntity te, EntityPlayer player, int fortune){
+		// TODO Auto-generated method stub
+		return null;
 	}
 }
