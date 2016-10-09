@@ -8,8 +8,8 @@ public class ConfigHandler {
 	public static String afsutexture;
 	public static String afbtexture;
 
-	private static final String[] usableValuesAFSU = new String[] {"default", "blue", "yellow", "black", "old", "chloe1", "chloe2", "chloe3", "freezy"};
-	private static final String[] usableValuesAFB = new String[] {"default"};
+	private static final String[] usableValuesAFSU = new String[]{"default", "blue", "yellow", "black", "old", "chloe1", "chloe2", "chloe3", "freezy"};
+	private static final String[] usableValuesAFB = new String[]{"default"};
 
 	private static final String WARNING = "DO NOT CHANGE THIS IF YOU DONT KNOW WHAT YOU ARE DOING";
 
@@ -53,7 +53,8 @@ public class ConfigHandler {
 
 		config.load();
 		{
-			afsutexture = config.getString("AFSU Texture", "Textures", "default", "Changes the texture of the AFSU. Possible values: default, blue, yellow, black, old, chloe1, chloe2, chloe3, freezy", usableValuesAFSU);
+			afsutexture = config.getString("AFSU Texture", "Textures", "default", "Changes the texture of the AFSU. Possible values: default, blue, yellow, black, old, chloe1, chloe2, chloe3, freezy",
+					usableValuesAFSU);
 			afbtexture = config.getString("AFB Texture", "Textures", "default", "Changes the texture of the AFB. Possible values: default", usableValuesAFB);
 			AFSUxSize = config.getInt("xSize", "GUI", 176, 0, Integer.MAX_VALUE, WARNING);
 			AFSUySize = config.getInt("ySize", "GUI", 166, 0, Integer.MAX_VALUE, WARNING);

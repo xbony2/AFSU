@@ -20,7 +20,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 @SideOnly(Side.CLIENT)
 public class GuiAFSU extends GuiIC2<ContainerElectricBlock> {
 	private static final ResourceLocation BACKGROUND = new ResourceLocation("ic2", "textures/gui/GUIElectricBlock.png");
-	
+
 	public GuiAFSU(final ContainerElectricBlock container) {
 		super(container, 196);
 

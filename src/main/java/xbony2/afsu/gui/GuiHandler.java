@@ -10,23 +10,23 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import xbony2.afsu.tileentity.TileEntityAFSU;
 
-public class GuiHandler implements IGuiHandler{
+public class GuiHandler implements IGuiHandler {
 
 	@Override
-	public Object getServerGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z) {
+	public Object getServerGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z){
 		TileEntity entity = world.getTileEntity(new BlockPos(x, y, z));
-		if (entity instanceof TileEntityAFSU)
-			return new ContainerElectricBlock(player, (TileEntityAFSU)entity);
+		if(entity instanceof TileEntityAFSU)
+			return new ContainerElectricBlock(player, (TileEntityAFSU) entity);
 
 		return null;
 	}
 
 	@Override
-    @SideOnly(Side.CLIENT)
-	public Object getClientGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z) {
+	@SideOnly(Side.CLIENT)
+	public Object getClientGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z){
 		TileEntity entity = world.getTileEntity(new BlockPos(x, y, z));
-		if (entity instanceof TileEntityAFSU)
-			return new GuiAFSU(new ContainerElectricBlock(player, (TileEntityAFSU)entity));
+		if(entity instanceof TileEntityAFSU)
+			return new GuiAFSU(new ContainerElectricBlock(player, (TileEntityAFSU) entity));
 
 		return null;
 	}

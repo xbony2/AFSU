@@ -15,21 +15,20 @@ import xbony2.afsu.tileentity.TileEntityAFSU;
  */
 public class ItemBlockAFSU extends ItemBlock {
 
-    public ItemBlockAFSU(Block block) {
-        super(block);
-    }
+	public ItemBlockAFSU(Block block) {
+		super(block);
+	}
 
-    @Override
-    public void addInformation(ItemStack stack, EntityPlayer player, List tooltipList, boolean par4) {
-        final String output = AFSUMod.translate("ic2.item.tooltip.Output") + " " + TileEntityAFSU.MAX_OUTPUT + "EU/t";
-        final String capacity = AFSUMod.translate("ic2.item.tooltip.Capacity") + " " + "1b EU";
-        final String stored = AFSUMod.translate("ic2.item.tooltip.Store") + " ";
-        tooltipList.add(output + " " + capacity);
-        
-        if (stack.hasTagCompound())
-            tooltipList.add(stored + stack.getTagCompound().getInteger("energy") + " EU");
-        else
-            tooltipList.add(stored + 0 + " EU");
-    }
+	@Override
+	public void addInformation(ItemStack stack, EntityPlayer player, List tooltipList, boolean par4){
+		final String output = AFSUMod.translate("ic2.item.tooltip.Output") + " " + TileEntityAFSU.MAX_OUTPUT + "EU/t";
+		final String capacity = AFSUMod.translate("ic2.item.tooltip.Capacity") + " " + "1b EU";
+		final String stored = AFSUMod.translate("ic2.item.tooltip.Store") + " ";
+		tooltipList.add(output + " " + capacity);
+
+		if(stack.hasTagCompound())
+			tooltipList.add(stored + stack.getTagCompound().getInteger("energy") + " EU");
+		else tooltipList.add(stored + 0 + " EU");
+	}
 
 }

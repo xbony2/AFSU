@@ -23,7 +23,7 @@ import net.minecraftforge.fml.common.registry.GameRegistry;
 @Mod(modid = AFSUMod.AFSU_MODID, name = "AFSU Mod", version = "@VERSION@", dependencies = "required-after:IC2")
 public class AFSUMod {
 
-    public static final String AFSU_MODID = "AFSU";
+	public static final String AFSU_MODID = "AFSU";
 
 	@Instance(AFSUMod.AFSU_MODID)
 	public static AFSUMod instance;
@@ -34,9 +34,9 @@ public class AFSUMod {
 
 	@EventHandler
 	public void preInit(FMLPreInitializationEvent event){
-        ConfigHandler.init(event.getSuggestedConfigurationFile());
+		ConfigHandler.init(event.getSuggestedConfigurationFile());
 
-        GameRegistry.registerTileEntity(TileEntityAFSU.class, "AFSU");
+		GameRegistry.registerTileEntity(TileEntityAFSU.class, "AFSU");
 
 		GameRegistry.register(AFSU);
 		GameRegistry.register(ALC);
@@ -44,28 +44,21 @@ public class AFSUMod {
 
 	@EventHandler
 	public void init(FMLInitializationEvent event){
-        NetworkRegistry.INSTANCE.registerGuiHandler(AFSUMod.instance, new GuiHandler());
-		Recipes.advRecipes.addRecipe(new ItemStack(ALC),
-			"GIG", "IUI", "GIG",
-				'G', IC2Items.getItem("cable", "glass"),
-				'I', IC2Items.getItem("crafting", "iridium"),
-				'U', IC2Items.getItem("fluid_cell", "ic2uu_matter"));
-		
-		Recipes.advRecipes.addRecipe(new ItemStack(AFSU),
-			"MGM", "IAI", "MGM",
-				'I', IC2Items.getItem("crafting", "iridium"),
-				'G', IC2Items.getItem("cable", "glass"),
-				'M', IC2Items.getItem("te", "mfsu"),
-				'A', AFSUMod.ALC);
+		NetworkRegistry.INSTANCE.registerGuiHandler(AFSUMod.instance, new GuiHandler());
+		Recipes.advRecipes.addRecipe(new ItemStack(ALC), "GIG", "IUI", "GIG", 'G', IC2Items.getItem("cable", "glass"), 'I', IC2Items.getItem("crafting", "iridium"), 'U',
+				IC2Items.getItem("fluid_cell", "ic2uu_matter"));
+
+		Recipes.advRecipes.addRecipe(new ItemStack(AFSU), "MGM", "IAI", "MGM", 'I', IC2Items.getItem("crafting", "iridium"), 'G', IC2Items.getItem("cable", "glass"), 'M',
+				IC2Items.getItem("te", "mfsu"), 'A', AFSUMod.ALC);
 	}
-	
+
 	//Random utils that I'm too lazy to have as its own class
 	public static String translate(String key){
 		if(I18n.canTranslate(key))// TODO: used undepreciated methods
 			return I18n.translateToLocal(key);
 		else return I18n.translateToFallback(key);
 	}
-	
+
 	public static String translateFormatted(String key, Object... format){
 		if(I18n.canTranslate(key))// TODO: used undepreciated methods
 			return String.format(I18n.translateToLocal(key), format);
